@@ -35,10 +35,46 @@ function Header({ pageTitle, btnSearch }) {
       ) : null }
       { searchStatus
         ? (
-          <input
-            data-testid="search-input"
-            placeholder="busca"
-          />) : null}
+          <form>
+            <input
+              data-testid="search-input"
+              placeholder="busca"
+            />
+            <label htmlFor="ingredient">
+              <input
+                data-testid="ingredient-search-radio"
+                type="radio"
+                name="filter"
+                id="ingredient"
+              />
+              Ingredient
+            </label>
+            <label htmlFor="name">
+              <input
+                data-testid="name-search-radio"
+                type="radio"
+                name="filter"
+                id="name"
+              />
+              Name
+            </label>
+            <label htmlFor="firstLetter">
+              <input
+                data-testid="first-letter-search-radio"
+                type="radio"
+                name="filter"
+                id="firstLetter"
+              />
+              First Letter
+            </label>
+            <button
+              type="submit"
+              data-testid="exec-search-btn"
+            >
+              Search
+            </button>
+          </form>
+        ) : null}
 
     </div>
   );

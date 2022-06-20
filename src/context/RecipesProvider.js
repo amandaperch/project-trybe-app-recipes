@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MyContext from './MyContext';
+import RecipesContext from './RecipesContext';
 
 function MyProvider({ children }) {
   const contextValue = {};
 
   return (
-    <MyContext.Provider value={ contextValue }>
+    <RecipesContext.Provider value={ contextValue }>
       { children }
-    </MyContext.Provider>
+    </RecipesContext.Provider>
   );
 }
 

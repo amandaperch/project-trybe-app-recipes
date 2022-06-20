@@ -1,15 +1,13 @@
 import React from 'react';
 import Header from '../component/Header';
 
-function Food() {
-  const food = 'Foods';
+function ExploreIngredients() {
   return (
     <div>
-      <Header pageTitle={ food } btnSearch />
+      <Header pageTitle="Explore Ingredients" />
       dsda
-
     </div>
   );
 }
 
-export default Food;
+export default ExploreIngredients;

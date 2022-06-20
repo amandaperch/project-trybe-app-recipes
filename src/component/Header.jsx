@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import profIMG from '../images/profileIcon.svg';
 import searchIMG from '../images/searchIcon.svg';
 
-function Header({ pageTitle }) {
+function Header({ pageTitle, btnSearch }) {
   const [searchStatus, setSearchStatus] = useState(false);
   return (
     <div>
@@ -20,19 +20,25 @@ function Header({ pageTitle }) {
       <h2 data-testid="page-title">
         {pageTitle}
       </h2>
-      <button
-        type="button"
-        value="search-top-btn"
-        onClick={ () => setSearchStatus(!searchStatus) }
-      >
-        <img
-          data-testid="search-top-btn"
-          src={ searchIMG }
-          alt="search-icon"
-        />
-      </button>
+      {btnSearch ? (
+        <button
+          type="button"
+          value="search-top-btn"
+          onClick={ () => setSearchStatus(!searchStatus) }
+        >
+          <img
+            data-testid="search-top-btn"
+            src={ searchIMG }
+            alt="search-icon"
+          />
+        </button>
+      ) : null }
       { searchStatus
-        ? (<input data-testid="search-input" placeholder="busca" />) : null}
+        ? (
+          <input
+            data-testid="search-input"
+            placeholder="busca"
+          />) : null}
 
     </div>
   );

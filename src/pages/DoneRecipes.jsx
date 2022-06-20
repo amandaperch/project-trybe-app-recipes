@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from '../component/Header';
 
-function Food() {
-  const food = 'Foods';
+function DoneRecipes() {
   return (
     <div>
-      <Header pageTitle={ food } btnSearch />
+      <Header
+        pageTitle="Done Recipes"
+      />
       dsda
-
     </div>
   );
 }
 
-export default Food;
+export default DoneRecipes;

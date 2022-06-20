@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Header from '../component/Header';
 
 const NUM = 6;
 
@@ -24,7 +23,6 @@ function Login() {
 
   return (
     <div>
-      <Header />
       <input
         type="email"
         data-testid="email-input"

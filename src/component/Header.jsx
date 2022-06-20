@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profIMG from '../images/profileIcon.svg';
 import searchIMG from '../images/searchIcon.svg';
 
-function Header() {
+function Header({ pageTitle }) {
   const [searchStatus, setSearchStatus] = useState(false);
   return (
     <div>
@@ -17,17 +17,16 @@ function Header() {
           alt="profile-icon"
         />
       </Link>
-      <p data-testid="page-title">
-        {' '}
-
-      </p>
+      <h2 data-testid="page-title">
+        {pageTitle}
+      </h2>
       <button
         type="button"
-        data-testid="search-top-btn"
         value="search-top-btn"
         onClick={ () => setSearchStatus(!searchStatus) }
       >
         <img
+          data-testid="search-top-btn"
           src={ searchIMG }
           alt="search-icon"
         />
@@ -38,5 +37,9 @@ function Header() {
     </div>
   );
 }
+
+Header.propTypes = {
+  pageTitle: PropTypes.string,
+}.isRequired;
 
 export default Header;

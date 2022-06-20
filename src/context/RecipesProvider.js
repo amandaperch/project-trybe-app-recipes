@@ -8,16 +8,21 @@ function RecipesProvider({ children }) {
 
   // ingredient
 
+  // const fetchData = async () => {
+  //   const url = 'https://www.themealdb.com/api/json/v1/1/';
+  //   const { meals } = await fetch(`${url}${searchFilter}`)
+  //     .then((response) => response.json());
+  //   setData(meals);
+  // };
   const fetchData = async () => {
-    const url = 'https://www.themealdb.com/api/json/v1/1/';
-    const { meals } = await fetch(`${url}${searchFilter}`)
+    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const { meals } = await fetch(url)
       .then((response) => response.json());
     setData(meals);
   };
-
   useCallback(() => {
     fetchData();
-  }, [fetchData, searchFilter]);
+  }, []);
 
   const contextValue = {
     data,

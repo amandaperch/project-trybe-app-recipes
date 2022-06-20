@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import profIMG from '../images/profileIcon.svg';
 import searchIMG from '../images/searchIcon.svg';
 
 function Header() {
+  const [searchStatus, setSearchStatus] = useState(false);
   return (
     <div>
       <Link
-        to="/"
+        to="/profile"
       >
         <img
           data-testid="profile-top-btn"
@@ -23,12 +25,16 @@ function Header() {
         type="button"
         data-testid="search-top-btn"
         value="search-top-btn"
+        onClick={ () => setSearchStatus(!searchStatus) }
       >
         <img
           src={ searchIMG }
           alt="search-icon"
         />
       </button>
+      { searchStatus
+        ? (<input data-testid="search-input" placeholder="busca" />) : null}
+
     </div>
   );
 }

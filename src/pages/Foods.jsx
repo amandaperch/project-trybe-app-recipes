@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Profile() {
+function Food() {
   return (
     <div>dsda</div>
   );
 }
 
-export default Profile;
+export default Food;

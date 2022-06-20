@@ -3,12 +3,13 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      {/* <Route exact path="/profile" component={ Profile } /> */}
+      <Route exact path="/profile" component={ Profile } />
       {/* <Route exact path="/foods" component={ Foods } />
       <Route exact path="/drinks" component={ Drinks } />
       <Route exact path="/foods/:idReceita" component={ Foods2 } />

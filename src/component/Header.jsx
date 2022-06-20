@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profIMG from '../images/profileIcon.svg';
 import searchIMG from '../images/searchIcon.svg';
+import RecipesContext from '../context/RecipesContext';
 
 function Header({ pageTitle, btnSearch }) {
   const [searchStatus, setSearchStatus] = useState(false);
+  const [radioControl, setRadioControl] = useState();
+  const [inputValue, setInputValue] = useState();
+  const { setSearchFilter } = useContext(RecipesContext);
+
+  const searchBtn = () => {
+    if (radioControl && inputValue) {
+      setSearchFilter(radioControl + inputValue);
+    } else {
+      global.alert('Your search must have only 1 (one) character');
+    }
+  };
+
   return (
     <div>
       <Link
@@ -39,6 +52,8 @@ function Header({ pageTitle, btnSearch }) {
             <input
               data-testid="search-input"
               placeholder="busca"
+              value={ inputValue }
+              onChange={ (e) => setInputValue(e.target.value) }
             />
             <label htmlFor="ingredient">
               <input
@@ -46,6 +61,8 @@ function Header({ pageTitle, btnSearch }) {
                 type="radio"
                 name="filter"
                 id="ingredient"
+                value="filter.php?i="
+                onClick={ (e) => setRadioControl(e.target.value) }
               />
               Ingredient
             </label>
@@ -55,6 +72,8 @@ function Header({ pageTitle, btnSearch }) {
                 type="radio"
                 name="filter"
                 id="name"
+                value="search.php?s="
+                onClick={ (e) => setRadioControl(e.target.value) }
               />
               Name
             </label>
@@ -64,12 +83,15 @@ function Header({ pageTitle, btnSearch }) {
                 type="radio"
                 name="filter"
                 id="firstLetter"
+                value="search.php?f="
+                onClick={ (e) => setRadioControl(e.target.value) }
               />
               First Letter
             </label>
             <button
-              type="submit"
+              type="button"
               data-testid="exec-search-btn"
+              onClick={ () => searchBtn() }
             >
               Search
             </button>

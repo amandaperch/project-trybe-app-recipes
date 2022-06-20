@@ -12,7 +12,12 @@ function Login() {
 
   const validatePassword = () => password.length > NUM;
 
+  const jsonEmail = JSON.stringify({ email });
+
   const handleClick = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', jsonEmail);
     history.push('/foods');
   };
 

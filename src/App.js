@@ -2,12 +2,13 @@ import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/Login';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/foods" component={ Foods } />
+      {/* <Route exact path="/foods" component={ Foods } />
       <Route exact path="/drinks" component={ Drinks } />
       <Route exact path="/foods/:idReceita" component={ Foods2 } />
       <Route exact path="/drinks/:idReceita" component={ Drinks2 } />
@@ -21,7 +22,7 @@ function App() {
       <Route exact path="/explore/foods/nationalities" component={ ExploreFoodsNat } />
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
-      <Route exact path="/favorite-recipes" component={ FavRecipes } />
+      <Route exact path="/favorite-recipes" component={ FavRecipes } /> */}
     </Switch>
   );
 }

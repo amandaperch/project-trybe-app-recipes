@@ -10,12 +10,14 @@ function Header({ pageTitle, btnSearch }) {
   const [radioControl, setRadioControl] = useState();
   const [inputValue, setInputValue] = useState();
   const { setSearchFilter } = useContext(RecipesContext);
+  const { setApiFilter } = useContext(RecipesContext);
+  setApiFilter(pageTitle);
 
   const searchBtn = () => {
-    if (radioControl && inputValue) {
-      setSearchFilter(radioControl + inputValue);
-    } else {
+    if (radioControl === 'search.php?f=' && inputValue.length > 1) {
       global.alert('Your search must have only 1 (one) character');
+    } else {
+      setSearchFilter(radioControl + inputValue);
     }
   };
 

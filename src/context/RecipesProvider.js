@@ -24,7 +24,7 @@ function RecipesProvider({ children }) {
     setData(meals);
   }, [searchFilter]);
 
-  // requisicao com filtro FOOD
+  // requisicao com filtro DRINK
   const drinkAPI = useCallback(async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/';
     const { drinks } = await fetch(`${url}${searchFilter}`)
@@ -42,7 +42,7 @@ function RecipesProvider({ children }) {
         console.log('ok esta funcionando drink');
       }
     } else {
-      console.log('batatinha');
+      console.log('tem algo de errado');
     }
   }, [apiFilter, searchFilter, foodAPI, drinkAPI]);
 

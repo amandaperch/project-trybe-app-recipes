@@ -6,14 +6,24 @@ function RecipesProvider({ children }) {
   const [data, setData] = useState();
   const [searchFilter, setSearchFilter] = useState();
   const [apiFilter, setApiFilter] = useState();
-  const max = 12;
+  const [category, setCategory] = useState();
+
+  const maxRecipes = 12;
+  const maxCategory = 5;
+
+  const foodAPICategory = useCallback(async () => {
+    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    const { meals } = await fetch(url)
+      .then((response) => response.json());
+    setCategory(meals.splice(0, maxCategory));
+  }, []);
 
   // requisição FOOD primeiro render
   const fullFoodAPI = async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const { meals } = await fetch(url)
       .then((response) => response.json());
-    setData(meals.splice(0, max));
+    setData(meals.splice(0, maxRecipes));
   };
 
   // requisicao com filtro FOOD
@@ -24,7 +34,7 @@ function RecipesProvider({ children }) {
     if (meals === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-    setData(meals.splice(0, max));
+    setData(meals.splice(0, maxRecipes));
   }, [searchFilter]);
 
   // requisição DRINK primeiro render
@@ -32,7 +42,7 @@ function RecipesProvider({ children }) {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const { drinks } = await fetch(url)
       .then((response) => response.json());
-    setData(drinks.splice(0, max));
+    setData(drinks.splice(0, maxRecipes));
   };
 
   // requisicao com filtro DRINK
@@ -40,10 +50,11 @@ function RecipesProvider({ children }) {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/';
     const { drinks } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
+    console.log(drinks);
     if (drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-    setData(drinks.splice(0, max));
+    setData(drinks.splice(0, maxRecipes));
   }, [searchFilter]);
 
   useEffect(() => {
@@ -56,14 +67,13 @@ function RecipesProvider({ children }) {
     } else {
       if (apiFilter === 'Foods') {
         fullFoodAPI();
-        console.log('first render');
+        foodAPICategory();
       } else if (apiFilter === 'Drinks') {
         fullDrinkAPI();
-        console.log('first render');
       }
       console.log(`estamos na pagina ${apiFilter}`);
     }
-  }, [apiFilter, searchFilter, foodAPI, drinkAPI]);
+  }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory]);
 
   const contextValue = {
     data,
@@ -72,6 +82,8 @@ function RecipesProvider({ children }) {
     setSearchFilter,
     apiFilter,
     setApiFilter,
+    category,
+    setCategory,
   };
 
   return (

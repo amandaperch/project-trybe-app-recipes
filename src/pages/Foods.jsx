@@ -6,15 +6,14 @@ import Card from '../components/Card';
 
 function Food() {
   const food = 'Foods';
-  const { data, setApiFilter } = useContext(RecipesContext);
+  const { data, setApiFilter, category } = useContext(RecipesContext);
   const history = useHistory();
-
+  console.log(category);
   if (data) {
     if (data.length === 1) {
       history.push(`/foods/${data[0].idMeal}`);
     }
   } else {
-    console.log(data);
     setApiFilter(food);
   }
 

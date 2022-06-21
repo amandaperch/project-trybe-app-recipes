@@ -5,11 +5,17 @@ import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
 
 function Drinks() {
-  const { data } = useContext(RecipesContext);
+  const drinks = 'Drinks';
+  const { data, setApiFilter } = useContext(RecipesContext);
   const history = useHistory();
 
-  if (data.length === 1) {
-    history.push(`/drinks/${data[0].idDrink}`);
+  if (data) {
+    if (data.length === 1) {
+      history.push(`/drinks/${data[0].idDrink}`);
+    }
+  } else {
+    console.log(data);
+    setApiFilter(drinks);
   }
 
   return (
@@ -18,7 +24,7 @@ function Drinks() {
       {!data ? <p>loading</p> : (
         data.map((recipe, index) => (
           <Link
-            to={ `drinks/${data.idDrink}` }
+            to={ `drinks/${data[index].idDrink}` }
             key={ index }
           >
             <Card

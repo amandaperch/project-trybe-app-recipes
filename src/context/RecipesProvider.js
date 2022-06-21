@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [searchFilter, setSearchFilter] = useState();
   const [apiFilter, setApiFilter] = useState();
   const max = 12;
@@ -21,10 +21,13 @@ function RecipesProvider({ children }) {
     const url = 'https://www.themealdb.com/api/json/v1/1/';
     const { meals } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
+    if (meals === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
     setData(meals.splice(0, max));
   }, [searchFilter]);
 
-  // requisição Drink primeiro render
+  // requisição DRINK primeiro render
   const fullDrinkAPI = async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const { drinks } = await fetch(url)
@@ -37,6 +40,9 @@ function RecipesProvider({ children }) {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/';
     const { drinks } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
+    if (drinks === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
     setData(drinks.splice(0, max));
   }, [searchFilter]);
 

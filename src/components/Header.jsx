@@ -9,8 +9,7 @@ function Header({ pageTitle, btnSearch }) {
   const [searchStatus, setSearchStatus] = useState(false);
   const [radioControl, setRadioControl] = useState();
   const [inputValue, setInputValue] = useState();
-  const { setSearchFilter } = useContext(RecipesContext);
-  const { setApiFilter } = useContext(RecipesContext);
+  const { setSearchFilter, setApiFilter } = useContext(RecipesContext);
   setApiFilter(pageTitle);
 
   const searchBtn = () => {

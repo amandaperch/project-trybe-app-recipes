@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [searchFilter, setSearchFilter] = useState();
   const [apiFilter, setApiFilter] = useState();
-
+  const max = 12;
   // requisição FOOD primeiro render
   // const foodAPI = async () => {
   //   const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -21,7 +21,7 @@ function RecipesProvider({ children }) {
     const url = 'https://www.themealdb.com/api/json/v1/1/';
     const { meals } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
-    setData(meals);
+    setData(meals.splice(0, max));
   }, [searchFilter]);
 
   // requisicao com filtro DRINK
@@ -29,20 +29,18 @@ function RecipesProvider({ children }) {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/';
     const { drinks } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
-    setData(drinks);
+    setData(drinks.splice(0, max));
   }, [searchFilter]);
 
   useEffect(() => {
     if (searchFilter) {
       if (apiFilter === 'Foods') {
         foodAPI();
-        console.log('ok esta funcionando food');
       } else if (apiFilter === 'Drinks') {
         drinkAPI();
-        console.log('ok esta funcionando drink');
       }
     } else {
-      console.log('tem algo de errado');
+      console.log(`estamos na pagina ${apiFilter}`);
     }
   }, [apiFilter, searchFilter, foodAPI, drinkAPI]);
 

@@ -1,18 +1,25 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+// import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import RecipesContext from '../context/RecipesContext';
+
+const RANDOM_FOOD_URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
 function ExploreFoods() {
-  const { data } = useContext(RecipesContext);
+  // const [randomMealId, setRandomMealId] = useState('');
+  const history = useHistory();
 
-  const randomRecipePath = () => {
-    if (data.length !== 0) {
-      const randomIndex = Math.floor(Math.random() * data.length);
-      return `/foods/${data[randomIndex].idMeal}`;
-    }
+  const goToRandomMeal = async () => {
+    const response = await fetch(RANDOM_FOOD_URL);
+    const { meals } = await response.json();
+    // setRandomMealId(meals[0].idMeal);
+    if (meals[0].idMeal) history.push(`/foods/${meals[0].idMeal}`);
   };
+
+  // useEffect(() => {
+  //   if (randomMealId) history.push(`/foods/${randomMealId}`);
+  // }, [randomMealId, history]);
 
   return (
     <div>
@@ -33,14 +40,13 @@ function ExploreFoods() {
           By Nationality
         </button>
       </Link>
-      <Link to={ randomRecipePath() }>
-        <button
-          type="button"
-          data-testid="explore-surprise"
-        >
-          Surprise me!
-        </button>
-      </Link>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        onClick={ goToRandomMeal }
+      >
+        Surprise me!
+      </button>
       <Footer />
     </div>
   );

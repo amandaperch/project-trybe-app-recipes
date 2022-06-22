@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import RecipesContext from '../context/RecipesContext';
+
+const RANDOM_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
 function ExploreDrinks() {
-  const { data } = useContext(RecipesContext);
+  const history = useHistory();
 
-  const randomRecipePath = () => {
-    if (data.length !== 0) {
-      const randomIndex = Math.floor(Math.random() * data.length);
-      return `/drinks/${data[randomIndex].idDrink}`;
-    }
+  const goToRandomDrink = async () => {
+    const response = await fetch(RANDOM_DRINK_URL);
+    const { drinks } = await response.json();
+    if (drinks[0].idDrink) history.push(`/drinks/${drinks[0].idDrink}`);
   };
 
   return (
@@ -22,14 +22,13 @@ function ExploreDrinks() {
           By Ingredient
         </button>
       </Link>
-      <Link to={ randomRecipePath() }>
-        <button
-          type="button"
-          data-testid="explore-surprise"
-        >
-          Surprise me!
-        </button>
-      </Link>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        onClick={ goToRandomDrink }
+      >
+        Surprise me!
+      </button>
       <Footer />
     </div>
   );

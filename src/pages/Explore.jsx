@@ -7,7 +7,20 @@ function Explore() {
     <>
       <div>
         <Header pageTitle="Explore" />
-        dsda
+      </div>
+      <div>
+        <button
+          type="button"
+          data-testid="explore-foods"
+        >
+          Explore Foods
+        </button>
+        <button
+          type="button"
+          data-testid="explore-drinks"
+        >
+          Explore Drinks
+        </button>
       </div>
       <footer>
         <Footer />

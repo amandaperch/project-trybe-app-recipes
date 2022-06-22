@@ -10,7 +10,7 @@ function Profile() {
   // const jsonEmail = JSON.stringify(email);
   const history = useHistory();
 
-  const email = localStorage.getItem('user');
+  const email = JSON.parse(localStorage.getItem('user'));
 
   const handleClick = () => {
     localStorage.clear();
@@ -24,7 +24,7 @@ function Profile() {
       </div>
 
       <h1 data-testid="profile-email">
-        {email}
+        {email.email}
       </h1>
 
       <Link to="/done-recipes">

@@ -33,8 +33,9 @@ function RecipesProvider({ children }) {
       .then((response) => response.json());
     if (meals === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else {
+      setData(meals.splice(0, maxRecipes));
     }
-    setData(meals.splice(0, maxRecipes));
   }, [searchFilter]);
 
   // requisição DRINK primeiro render
@@ -51,7 +52,7 @@ function RecipesProvider({ children }) {
     const { drinks } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
     console.log(drinks);
-    if (drinks === null) {
+    if (drinks === undefined) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     setData(drinks.splice(0, maxRecipes));

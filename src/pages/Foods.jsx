@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
@@ -7,25 +7,31 @@ import Card from '../components/Card';
 function Food() {
   const food = 'Foods';
   const { data, setApiFilter, category } = useContext(RecipesContext);
-  const history = useHistory();
 
-  if (data) {
-    if (data.length === 1) {
-      history.push(`/foods/${data[0].idMeal}`);
+  const verifyRedirect = () => {
+    if (data) {
+      console.log(data);
+      if (data.length === 1 && data[0].idMeal !== '52968') {
+        console.log('agora sim');
+        return <Redirect to={ `/foods/${data[0].idMeal}` } />;
+      }
+    } else {
+      setApiFilter(food);
     }
-  } else {
-    setApiFilter(food);
-  }
+  };
 
   return (
     <div>
+      {verifyRedirect()}
       <Header pageTitle={ food } btnSearch />
       {!category ? undefined : (
         category.map((categoryName, index) => (
           <button
+            value={ categoryName.strCategory }
             key={ index }
             type="button"
-            data-testid={ `${categoryName}-category-filter` }
+            data-testid={ `${categoryName.strCategory}-category-filter` }
+            onClick={ (e) => console.log(e.target.value) }
           >
             { categoryName.strCategory }
           </button>

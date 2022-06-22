@@ -8,7 +8,7 @@ function Food() {
   const food = 'Foods';
   const { data, setApiFilter, category } = useContext(RecipesContext);
   const history = useHistory();
-  console.log(category);
+
   if (data) {
     if (data.length === 1) {
       history.push(`/foods/${data[0].idMeal}`);
@@ -20,6 +20,17 @@ function Food() {
   return (
     <div>
       <Header pageTitle={ food } btnSearch />
+      {!category ? undefined : (
+        category.map((categoryName, index) => (
+          <button
+            key={ index }
+            type="button"
+            data-testid={ `${categoryName}-category-filter` }
+          >
+            { categoryName.strCategory }
+          </button>
+        ))
+      )}
       {!data ? <p>loading</p> : (
         data.map((recipe, index) => (
           <Link

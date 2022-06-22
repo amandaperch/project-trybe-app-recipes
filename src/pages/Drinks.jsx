@@ -14,7 +14,6 @@ function Drinks() {
       history.push(`/drinks/${data[0].idDrink}`);
     }
   } else {
-    console.log(data);
     setApiFilter(drinks);
   }
 

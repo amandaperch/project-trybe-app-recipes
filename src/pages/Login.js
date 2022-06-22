@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 
 const NUM = 6;
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const { email, setEmail } = useContext(RecipesContext);
   const [password, setPassword] = useState('');
   const history = useHistory();
 

@@ -9,14 +9,11 @@ function Food() {
   const { data, setApiFilter, category } = useContext(RecipesContext);
 
   const verifyRedirect = () => {
-    if (data) {
-      console.log(data);
-      if (data.length === 1 && data[0].idMeal !== '52968') {
-        console.log('agora sim');
-        return <Redirect to={ `/foods/${data[0].idMeal}` } />;
-      }
-    } else {
+    if (!data) {
       setApiFilter(food);
+    } else if (data.length === 1 && data[0].idMeal !== '52968') {
+      console.log('agora sim');
+      return <Redirect to={ `/foods/${data[0].idMeal}` } />;
     }
   };
 

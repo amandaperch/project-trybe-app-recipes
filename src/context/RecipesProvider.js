@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
+const maxRecipes = 12;
+const maxCategory = 5;
+const messageError = 'Sorry, we haven\'t found any recipes for these filters.';
 function RecipesProvider({ children }) {
   const [data, setData] = useState();
   const [searchFilter, setSearchFilter] = useState();
   const [apiFilter, setApiFilter] = useState();
   const [category, setCategory] = useState();
-
-  const maxRecipes = 12;
-  const maxCategory = 5;
 
   const foodAPICategory = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -32,7 +32,7 @@ function RecipesProvider({ children }) {
     const { meals } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
     if (meals === null) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      global.alert(messageError);
     } else {
       setData(meals.splice(0, maxRecipes));
     }
@@ -51,11 +51,11 @@ function RecipesProvider({ children }) {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/';
     const { drinks } = await fetch(`${url}${searchFilter}`)
       .then((response) => response.json());
-    console.log(drinks);
-    if (drinks === undefined) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    if (drinks === null) {
+      global.alert(messageError);
+    } else {
+      setData(drinks.splice(0, maxRecipes));
     }
-    setData(drinks.splice(0, maxRecipes));
   }, [searchFilter]);
 
   useEffect(() => {

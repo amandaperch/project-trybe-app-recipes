@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-// import RecipesProvider from '../context/RecipesContext';
 
 function Profile() {
-  // const { email } = useContext(RecipesProvider);
-  // const jsonEmail = JSON.stringify(email);
   const history = useHistory();
-
   const email = JSON.parse(localStorage.getItem('user'));
 
   const handleClick = () => {

@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
+import Footer from '../components/Footer';
 
 function Food() {
   const pageTitle = 'Foods';
@@ -49,12 +50,11 @@ function Food() {
             <Card
               index={ index }
               infoRecipe={ recipe }
-
             />
           </Link>
         ))
       )}
-
+      <Footer />
     </div>
   );
 }

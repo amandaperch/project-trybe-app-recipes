@@ -19,6 +19,7 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
+
       <Route exact path="/foods/:idReceita" component={ Details } />
       <Route exact path="/foods" component={ Foods } />
       <Route exact path="/profile" component={ Profile } />

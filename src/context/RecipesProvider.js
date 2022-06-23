@@ -12,6 +12,7 @@ function RecipesProvider({ children }) {
   const [apiFilter, setApiFilter] = useState();
   const [detail, setDetail] = useState();
   const [category, setCategory] = useState();
+  const [email, setEmail] = useState('');
 
   const foodAPICategory = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -81,6 +82,8 @@ function RecipesProvider({ children }) {
   const contextValue = {
     data,
     setData,
+    email,
+    setEmail,
     searchFilter,
     setSearchFilter,
     apiFilter,

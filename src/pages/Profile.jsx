@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -15,12 +14,13 @@ function Profile() {
 
   return (
     <>
-      <div>
-        <Header pageTitle="Profile" />
-      </div>
+      <Header pageTitle="Profile" />
 
       <h1 data-testid="profile-email">
-        {email.email}
+        {email
+          ? (
+            email.email
+          ) : 'email@email' }
       </h1>
 
       <Link to="/done-recipes">
@@ -54,9 +54,5 @@ function Profile() {
     </>
   );
 }
-
-Profile.propTypes = {
-  email: PropTypes.string,
-}.isRequired;
 
 export default Profile;

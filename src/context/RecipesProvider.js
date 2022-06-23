@@ -18,7 +18,7 @@ function RecipesProvider({ children }) {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
     const { meals } = await fetch(url)
       .then((response) => response.json());
-    setCategory(meals.splice(0, maxCategory));
+    setCategory(meals.slice(0, maxCategory));
   }, []);
 
   // requisição FOOD primeiro render
@@ -26,7 +26,7 @@ function RecipesProvider({ children }) {
     const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const { meals } = await fetch(url)
       .then((response) => response.json());
-    setData(meals.splice(0, maxRecipes));
+    setData(meals.slice(0, maxRecipes));
   };
 
   // requisicao com filtro FOOD
@@ -37,7 +37,7 @@ function RecipesProvider({ children }) {
     if (meals === null) {
       global.alert(messageError);
     } else {
-      setData(meals.splice(0, maxRecipes));
+      setData(meals.slice(0, maxRecipes));
     }
   }, [searchFilter]);
 
@@ -46,7 +46,7 @@ function RecipesProvider({ children }) {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const { drinks } = await fetch(url)
       .then((response) => response.json());
-    setData(drinks.splice(0, maxRecipes));
+    setData(drinks.slice(0, maxRecipes));
   };
 
   // requisicao com filtro DRINK
@@ -57,7 +57,7 @@ function RecipesProvider({ children }) {
     if (drinks === null) {
       global.alert(messageError);
     } else {
-      setData(drinks.splice(0, maxRecipes));
+      setData(drinks.slice(0, maxRecipes));
     }
   }, [searchFilter]);
 

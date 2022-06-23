@@ -33,7 +33,8 @@ function FoodDetails() {
   }, [foodRecipe, foodDetail, drinkDetail, drinkRecipe]);
 
   const ingredients = [];
-  for (let index = 1; index <= max; index += 1) {
+  for (let index = 1; index <= max && detail; index += 1) {
+    console.log(detail, 'xablau');
     if (detail[`strIngredient${index}`]) {
       ingredients.push(
         `- ${detail[`strIngredient${index}`]} - ${detail[`strMeasure${index}`]}`,

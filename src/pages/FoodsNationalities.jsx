@@ -9,9 +9,7 @@ function FoodsNationalities() {
         <Header pageTitle="Explore Nationalities" btnSearch />
         dsda
       </div>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
 
     </>
   );

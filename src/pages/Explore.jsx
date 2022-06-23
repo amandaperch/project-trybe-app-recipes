@@ -30,9 +30,7 @@ function Explore() {
         </Link>
 
       </div>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
 
     </>
 

@@ -9,10 +9,7 @@ function Profile() {
         <Header pageTitle="Profile" />
         dsda
       </div>
-      <footer>
-        <Footer />
-      </footer>
-
+      <Footer />
     </>
   );
 }

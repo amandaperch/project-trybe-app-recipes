@@ -10,6 +10,7 @@ function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [searchFilter, setSearchFilter] = useState();
   const [apiFilter, setApiFilter] = useState();
+  const [detail, setDetail] = useState();
   const [category, setCategory] = useState();
 
   const foodAPICategory = useCallback(async () => {
@@ -84,6 +85,8 @@ function RecipesProvider({ children }) {
     setSearchFilter,
     apiFilter,
     setApiFilter,
+    detail,
+    setDetail,
     category,
     setCategory,
   };

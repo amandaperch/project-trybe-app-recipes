@@ -1,11 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+const max = 20;
+
 function FoodDetails() {
   const [detail, setDetail] = useState('');
   const idReceita = useParams();
   const historyUrl = window.location.href;
-  const foodRecipe = historyUrl.includes('food');
+  const foodRecipe = historyUrl.includes('foods');
+  const drinkRecipe = historyUrl.includes('drinks');
 
   const foodDetail = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -24,12 +27,11 @@ function FoodDetails() {
   useEffect(() => {
     if (foodRecipe) {
       foodDetail();
-    } else {
+    } else if (drinkRecipe) {
       drinkDetail();
     }
-  }, [foodRecipe, foodDetail, drinkDetail]);
+  }, [foodRecipe, foodDetail, drinkDetail, drinkRecipe]);
 
-  const max = 20;
   const ingredients = [];
   for (let index = 1; index <= max; index += 1) {
     if (detail[`strIngredient${index}`]) {
@@ -41,8 +43,7 @@ function FoodDetails() {
 
   return (
     <>
-      {' '}
-      { detail ? (
+      { detail && (
         <>
           <header>
             <img
@@ -110,7 +111,9 @@ function FoodDetails() {
           </main>
           <button type="button" data-testid="start-recipe-btn"> Start Recipe </button>
         </>
-      ) : <h1> Loading... </h1> }
+      ) }
+      {' '}
+
     </>
   );
 }

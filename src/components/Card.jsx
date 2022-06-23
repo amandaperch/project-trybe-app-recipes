@@ -8,6 +8,7 @@ function Card({ infoRecipe, index }) {
   const card = (picRecipe, nameRecipe) => (
     <div data-testid={ `${index}-recipe-card` }>
       <img
+        width="150px"
         data-testid={ `${index}-card-img` }
         alt="recipe-pic"
         src={ picRecipe }

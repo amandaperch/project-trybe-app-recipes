@@ -13,16 +13,16 @@ import FoodsNationalities from './pages/FoodsNationalities';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explore from './pages/Explore';
-import FoodDetails from './pages/FoodsDetails';
+import FoodsDetails from './pages/FoodsDetails';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/foods/:idReceita" component={ FoodDetails } />
+      <Route exact path="/foods/:idReceita" component={ FoodsDetails } />
       <Route exact path="/foods" component={ Foods } />
       <Route exact path="/profile" component={ Profile } />
-      <Route exact path="/drinks/:idReceita" component={ FoodDetails } />
+      <Route exact path="/drinks/:idReceita" component={ Drinks } />
       <Route exact path="/drinks" component={ Drinks } />
       <Route exact path="/explore" component={ Explore } />
       <Route exact path="/explore/foods" component={ ExploreFoods } />

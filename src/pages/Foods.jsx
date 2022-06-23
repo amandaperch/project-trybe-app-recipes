@@ -1,26 +1,32 @@
-import React, { useContext } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
 
 function Food() {
-  const food = 'Foods';
+  const pageTitle = 'Foods';
   const { data, setApiFilter, category } = useContext(RecipesContext);
+  const history = useHistory();
 
-  const verifyRedirect = () => {
-    if (!data) {
-      setApiFilter(food);
-    } else if (data.length === 1 && data[0].idMeal !== '52968') {
-      console.log('agora sim');
-      return <Redirect to={ `/foods/${data[0].idMeal}` } />;
+  useEffect(() => {
+    if (data.length === 1 && data[0].idMeal !== '52968') {
+      console.log(data[0]);
+      return history.push(`/foods/${data[0].idMeal}`);
     }
-  };
+  }, [data, history]);
+
+  useEffect(() => {
+    if (!data) {
+      setApiFilter(pageTitle);
+    } else {
+      setApiFilter(pageTitle);
+    }
+  }, [data, setApiFilter]);
 
   return (
     <div>
-      {verifyRedirect()}
-      <Header pageTitle={ food } btnSearch />
+      <Header pageTitle={ pageTitle } btnSearch />
       {!category ? undefined : (
         category.map((categoryName, index) => (
           <button

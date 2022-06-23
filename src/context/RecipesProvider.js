@@ -5,8 +5,9 @@ import RecipesContext from './RecipesContext';
 const maxRecipes = 12;
 const maxCategory = 5;
 const messageError = 'Sorry, we haven\'t found any recipes for these filters.';
+
 function RecipesProvider({ children }) {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [searchFilter, setSearchFilter] = useState();
   const [apiFilter, setApiFilter] = useState();
   const [category, setCategory] = useState();

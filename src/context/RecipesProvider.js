@@ -6,6 +6,7 @@ function RecipesProvider({ children }) {
   const [data, setData] = useState();
   const [searchFilter, setSearchFilter] = useState();
   const [apiFilter, setApiFilter] = useState();
+  const [detail, setDetail] = useState();
 
   // requisição FOOD primeiro render
   // const foodAPI = async () => {
@@ -53,6 +54,8 @@ function RecipesProvider({ children }) {
     setSearchFilter,
     apiFilter,
     setApiFilter,
+    detail,
+    setDetail,
   };
 
   return (

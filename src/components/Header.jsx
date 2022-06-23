@@ -9,8 +9,7 @@ function Header({ pageTitle, btnSearch }) {
   const [searchStatus, setSearchStatus] = useState(false);
   const [radioControl, setRadioControl] = useState();
   const [inputValue, setInputValue] = useState();
-  const { setSearchFilter } = useContext(RecipesContext);
-  const { setApiFilter } = useContext(RecipesContext);
+  const { setSearchFilter, setApiFilter } = useContext(RecipesContext);
   setApiFilter(pageTitle);
 
   const searchBtn = () => {
@@ -22,7 +21,7 @@ function Header({ pageTitle, btnSearch }) {
   };
 
   return (
-    <div>
+    <header>
       <Link
         to="/profile"
       >
@@ -50,7 +49,7 @@ function Header({ pageTitle, btnSearch }) {
       ) : null }
       { searchStatus
         ? (
-          <form>
+          <div>
             <input
               data-testid="search-input"
               placeholder="busca"
@@ -97,10 +96,10 @@ function Header({ pageTitle, btnSearch }) {
             >
               Search
             </button>
-          </form>
+          </div>
         ) : null}
 
-    </div>
+    </header>
   );
 }
 

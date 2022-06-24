@@ -1,17 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
+
+const AREAS_LIST_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const MEALS_BY_AREAS_URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+const TWELVE = 12;
 
 function FoodsNationalities() {
-  return (
-    <>
-      <div>
-        <Header pageTitle="Explore Nationalities" btnSearch />
-        dsda
-      </div>
-      <Footer />
+  const [areas, setAreas] = useState();
+  const [selectedArea, setSelectedArea] = useState('');
+  const { data, setData, fullFoodAPI } = useContext(RecipesContext);
 
-    </>
+  useEffect(() => {
+    const getAreasList = async () => {
+      const response = await fetch(AREAS_LIST_URL);
+      const meals = await response.json();
+      setAreas(meals.meals);
+    };
+    getAreasList();
+    fullFoodAPI();
+  }, [fullFoodAPI]);
+
+  const getMealsByArea = async (nationality) => {
+    const response = await fetch(`${MEALS_BY_AREAS_URL}${nationality}`);
+    const { meals } = await response.json();
+    setData(meals.filter((_, index) => index < TWELVE));
+  };
+
+  const handleClick = (nationality) => {
+    setSelectedArea(nationality);
+    getMealsByArea(nationality);
+  };
+
+  return (
+    <div>
+      <Header pageTitle="Explore Nationalities" btnSearch />
+      <select
+        data-testid="explore-by-nationality-dropdown"
+        value={ selectedArea }
+        onChange={ (e) => handleClick(e.target.value) }
+      >
+        {areas
+          && areas.map((area) => (
+            <option
+              key={ area.strArea }
+              data-testid={ `${area.strArea}-option` }
+            >
+              {area.strArea}
+            </option>))}
+      </select>
+      {data && (
+        data.map((recipe, index) => (
+          <Link
+            to={ `foods/${data[index].idMeal}` }
+            key={ index }
+          >
+            <Card
+              index={ index }
+              infoRecipe={ recipe }
+            />
+          </Link>
+        ))
+      )}
+      <Footer />
+    </div>
   );
 }
 

@@ -26,11 +26,9 @@ function Food() {
   }, [data, setApiFilter]);
 
   const filterCategory = useCallback(async (categoryName) => {
-    console.log(categoryName);
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
     const { meals } = await fetch(`${url}${categoryName}`)
       .then((response) => response.json());
-    console.log(meals);
     setData(meals.slice(0, maxRecipes));
   }, [setData]);
 

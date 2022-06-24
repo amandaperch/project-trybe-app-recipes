@@ -77,15 +77,12 @@ function RecipesProvider({ children }) {
       } else if (apiFilter === 'Drinks') {
         drinkAPI();
       }
-    } else {
-      if (apiFilter === 'Foods') {
-        fullFoodAPI();
-        foodAPICategory();
-      } else if (apiFilter === 'Drinks') {
-        fullDrinkAPI();
-        drinksAPICategory();
-      }
-      console.log(`estamos na pagina ${apiFilter}`);
+    } else if (apiFilter === 'Foods') {
+      fullFoodAPI();
+      foodAPICategory();
+    } else if (apiFilter === 'Drinks') {
+      fullDrinkAPI();
+      drinksAPICategory();
     }
   }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory, drinksAPICategory]);
 

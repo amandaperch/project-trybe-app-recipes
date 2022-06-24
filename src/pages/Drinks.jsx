@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 
 function Drinks() {
   const pageTitle = 'Drinks';
-  const { data, setApiFilter } = useContext(RecipesContext);
+  const { data, setApiFilter, category } = useContext(RecipesContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -27,6 +27,19 @@ function Drinks() {
 
   return (
     <div>
+      {!category ? undefined : (
+        category.map((categoryName, index) => (
+          <button
+            value={ categoryName.strCategory }
+            key={ index }
+            type="button"
+            data-testid={ `${categoryName.strCategory}-category-filter` }
+            onClick={ (e) => console.log(e.target.value) }
+          >
+            { categoryName.strCategory }
+          </button>
+        ))
+      )}
       <Header pageTitle={ pageTitle } btnSearch />
       {!data ? <p>loading</p> : (
         data.map((recipe, index) => (

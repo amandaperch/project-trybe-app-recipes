@@ -14,6 +14,7 @@ function RecipesProvider({ children }) {
   const [category, setCategory] = useState();
   const [email, setEmail] = useState('');
 
+  // Filtro de botões de FOODS
   const foodAPICategory = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
     const { meals } = await fetch(url)
@@ -40,6 +41,14 @@ function RecipesProvider({ children }) {
       setData(meals.slice(0, maxRecipes));
     }
   }, [searchFilter]);
+
+  // Filtro de botões de DRINKS
+  const drinksAPICategory = useCallback(async () => {
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    const { drinks } = await fetch(url)
+      .then((response) => response.json());
+    setCategory(drinks.slice(0, maxCategory));
+  }, []);
 
   // requisição DRINK primeiro render
   const fullDrinkAPI = async () => {
@@ -74,10 +83,11 @@ function RecipesProvider({ children }) {
         foodAPICategory();
       } else if (apiFilter === 'Drinks') {
         fullDrinkAPI();
+        drinksAPICategory();
       }
       console.log(`estamos na pagina ${apiFilter}`);
     }
-  }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory]);
+  }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory, drinksAPICategory]);
 
   const contextValue = {
     data,

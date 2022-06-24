@@ -22,12 +22,12 @@ function RecipesProvider({ children }) {
   }, []);
 
   // requisição FOOD primeiro render
-  const fullFoodAPI = async () => {
+  const fullFoodAPI = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const { meals } = await fetch(url)
       .then((response) => response.json());
     setData(meals.slice(0, maxRecipes));
-  };
+  }, []);
 
   // requisicao com filtro FOOD
   const foodAPI = useCallback(async () => {
@@ -77,7 +77,7 @@ function RecipesProvider({ children }) {
       }
       console.log(`estamos na pagina ${apiFilter}`);
     }
-  }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory]);
+  }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory, fullFoodAPI]);
 
   const contextValue = {
     data,
@@ -92,6 +92,7 @@ function RecipesProvider({ children }) {
     setDetail,
     category,
     setCategory,
+    fullFoodAPI,
   };
 
   return (

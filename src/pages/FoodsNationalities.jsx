@@ -11,7 +11,6 @@ const TWELVE = 12;
 
 function FoodsNationalities() {
   const [areas, setAreas] = useState();
-  const [selectedArea, setSelectedArea] = useState('');
   const { data, setData, fullFoodAPI } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -31,8 +30,11 @@ function FoodsNationalities() {
   };
 
   const handleClick = (nationality) => {
-    setSelectedArea(nationality);
-    getMealsByArea(nationality);
+    if (nationality === 'All') {
+      fullFoodAPI();
+    } else {
+      getMealsByArea(nationality);
+    }
   };
 
   return (
@@ -40,9 +42,9 @@ function FoodsNationalities() {
       <Header pageTitle="Explore Nationalities" btnSearch />
       <select
         data-testid="explore-by-nationality-dropdown"
-        value={ selectedArea }
         onChange={ (e) => handleClick(e.target.value) }
       >
+        <option data-testid="All-option">All</option>
         {areas
           && areas.map((area) => (
             <option
@@ -55,7 +57,7 @@ function FoodsNationalities() {
       {data && (
         data.map((recipe, index) => (
           <Link
-            to={ `foods/${data[index].idMeal}` }
+            to={ `/foods/${data[index].idMeal}` }
             key={ index }
           >
             <Card

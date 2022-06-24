@@ -29,7 +29,7 @@ function FoodsNationalities() {
     setData(meals.filter((_, index) => index < TWELVE));
   };
 
-  const handleClick = (nationality) => {
+  const handleSelectArea = (nationality) => {
     if (nationality === 'All') {
       fullFoodAPI();
     } else {
@@ -42,7 +42,7 @@ function FoodsNationalities() {
       <Header pageTitle="Explore Nationalities" btnSearch />
       <select
         data-testid="explore-by-nationality-dropdown"
-        onChange={ (e) => handleClick(e.target.value) }
+        onChange={ (e) => handleSelectArea(e.target.value) }
       >
         <option data-testid="All-option">All</option>
         {areas

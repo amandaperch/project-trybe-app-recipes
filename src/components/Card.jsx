@@ -35,6 +35,7 @@ function Card({ infoRecipe, index }) {
       card(picRecipe, nameRecipe)
     );
   }
+  return null;
 }
 
 Card.propTypes = {

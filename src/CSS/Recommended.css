@@ -1,20 +1,20 @@
 .recomendation {
   overflow-y: auto;
-  width: 100%;
   display: inline-flex;
+  width: 100%;
   margin-bottom: 2em;
 }
 
 .recomendation img, .recomendation p {
-  width: 11em;
   padding: 0 1em;
+  width: 11em;
 }
 
 .header-recipe-photo {
   width: 100%;
 }
 
-.btnStartRecipe{
+.btnStartRecipe {
   bottom: 0;
   position: fixed;
   text-align: center;

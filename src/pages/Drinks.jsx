@@ -9,8 +9,8 @@ const maxRecipes = 12;
 function Drinks() {
   const pageTitle = 'Drinks';
   const history = useHistory();
-  const { data, setApiFilter, category, setData } = useContext(RecipesContext);
-  const [localData, setLocalData] = useState();
+  const { data, setApiFilter, category, setData, localData } = useContext(RecipesContext);
+  const [filterButton, setFilterButton] = useState('');
 
   useEffect(() => {
     if (data.length === 1) {
@@ -27,12 +27,16 @@ function Drinks() {
   }, [data, setApiFilter]);
 
   const filterCategory = useCallback(async (categoryName) => {
-    setLocalData(data);
-    const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
-    const { drinks } = await fetch(`${url}${categoryName}`)
-      .then((response) => response.json());
-    setData(drinks.slice(0, maxRecipes));
-  }, [data, setData]);
+    if (filterButton === categoryName) {
+      setData(localData);
+    } else {
+      const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+      const { drinks } = await fetch(`${url}${categoryName}`)
+        .then((response) => response.json());
+      setData(drinks.slice(0, maxRecipes));
+      setFilterButton(categoryName);
+    }
+  }, [filterButton, localData, setData]);
 
   const removeFilter = () => {
     setData(localData);

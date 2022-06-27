@@ -13,6 +13,7 @@ function RecipesProvider({ children }) {
   const [detail, setDetail] = useState();
   const [category, setCategory] = useState();
   const [email, setEmail] = useState('');
+  const [localData, setLocalData] = useState();
 
   // Filtro de botões de FOODS
   const foodAPICategory = useCallback(async () => {
@@ -28,6 +29,7 @@ function RecipesProvider({ children }) {
     const { meals } = await fetch(url)
       .then((response) => response.json());
     setData(meals.slice(0, maxRecipes));
+    setLocalData(meals.slice(0, maxRecipes));
   };
 
   // requisicao com filtro FOOD
@@ -51,12 +53,13 @@ function RecipesProvider({ children }) {
   }, []);
 
   // requisição DRINK primeiro render
-  const fullDrinkAPI = async () => {
+  const fullDrinkAPI = useCallback(async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const { drinks } = await fetch(url)
       .then((response) => response.json());
     setData(drinks.slice(0, maxRecipes));
-  };
+    setLocalData(drinks.slice(0, maxRecipes));
+  }, []);
 
   // requisicao com filtro DRINK
   const drinkAPI = useCallback(async () => {
@@ -84,7 +87,8 @@ function RecipesProvider({ children }) {
       fullDrinkAPI();
       drinksAPICategory();
     }
-  }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory, drinksAPICategory]);
+  }, [apiFilter, searchFilter, foodAPI, drinkAPI,
+    foodAPICategory, drinksAPICategory, fullDrinkAPI]);
 
   const contextValue = {
     data,
@@ -99,6 +103,8 @@ function RecipesProvider({ children }) {
     setDetail,
     category,
     setCategory,
+    localData,
+    setLocalData,
   };
 
   return (

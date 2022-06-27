@@ -9,8 +9,10 @@ const maxRecipes = 12;
 function Food() {
   const pageTitle = 'Foods';
   const history = useHistory();
-  const { data, setApiFilter, category, setData } = useContext(RecipesContext);
-  const [localData, setLocalData] = useState();
+  const { data, setApiFilter, category,
+    setData, localData } = useContext(RecipesContext);
+  const [filterButton, setFilterButton] = useState('');
+
   useEffect(() => {
     if (data.length === 1 && data[0].idMeal !== '52968') {
       return history.push(`/foods/${data[0].idMeal}`);
@@ -26,12 +28,16 @@ function Food() {
   }, [data, setApiFilter]);
 
   const filterCategory = useCallback(async (categoryName) => {
-    setLocalData(data);
-    const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
-    const { meals } = await fetch(`${url}${categoryName}`)
-      .then((response) => response.json());
-    setData(meals.slice(0, maxRecipes));
-  }, [data, setData, setLocalData]);
+    if (filterButton === categoryName) {
+      setData(localData);
+    } else {
+      const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+      const { meals } = await fetch(`${url}${categoryName}`)
+        .then((response) => response.json());
+      setData(meals.slice(0, maxRecipes));
+      setFilterButton(categoryName);
+    }
+  }, [filterButton, localData, setData]);
 
   const removeFilter = () => {
     setData(localData);
@@ -59,7 +65,7 @@ function Food() {
         data-testid="All-category-filter"
         onClick={ () => removeFilter() }
       >
-        all
+        Remove Filter
       </button>
       {!data ? <p>loading</p> : (
         data.map((recipe, index) => (

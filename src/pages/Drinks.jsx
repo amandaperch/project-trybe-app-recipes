@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
@@ -8,8 +8,9 @@ import Footer from '../components/Footer';
 const maxRecipes = 12;
 function Drinks() {
   const pageTitle = 'Drinks';
-  const { data, setApiFilter, category, setData } = useContext(RecipesContext);
   const history = useHistory();
+  const { data, setApiFilter, category, setData } = useContext(RecipesContext);
+  const [localData, setLocalData] = useState();
 
   useEffect(() => {
     if (data.length === 1) {
@@ -26,11 +27,16 @@ function Drinks() {
   }, [data, setApiFilter]);
 
   const filterCategory = useCallback(async (categoryName) => {
+    setLocalData(data);
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
     const { drinks } = await fetch(`${url}${categoryName}`)
       .then((response) => response.json());
     setData(drinks.slice(0, maxRecipes));
-  }, [setData]);
+  }, [data, setData]);
+
+  const removeFilter = () => {
+    setData(localData);
+  };
 
   return (
     <div>
@@ -48,6 +54,13 @@ function Drinks() {
           </button>
         ))
       )}
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => removeFilter() }
+      >
+        all
+      </button>
       {!data ? <p>loading</p> : (
         data.map((recipe, index) => (
           <Link

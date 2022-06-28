@@ -29,15 +29,20 @@ function DrinkInProgress() {
       );
     }
   }
+  console.log(JSON.parse(localStorage.getItem('inProgressRecipes')));
 
-  const localObject = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+  const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
   storage = {
     cocktails: {
       [idReceita.idReceita]: [],
     },
+    meals: {},
   };
   if (localObject === null) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+  } else if (localObject.cocktails[idReceita.idReceita] === undefined) {
+    localObject.cocktails[idReceita.idReceita] = [];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
   }
 
   const check = () => {
@@ -45,18 +50,15 @@ function DrinkInProgress() {
       index < ingredients.length && detail; index += 1) {
       const box = document.getElementById(ingredients[index]);
       if (box.checked) {
-        storage.cocktails[
-          idReceita.idReceita][index] = ingredients[index];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+        localObject.cocktails[idReceita.idReceita][index] = ingredients[index];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       } else {
-        storage.cocktails[
-          idReceita.idReceita][index] = '';
-        localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+        localObject.cocktails[idReceita.idReceita][index] = '';
+        localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       }
     }
   };
 
-  console.log(localObject.cocktails);
   return (
     <>
       { detail && (
@@ -88,7 +90,7 @@ function DrinkInProgress() {
               </p>
             </div>
             <h2> Ingredientes </h2>
-            {ingredients.map((ingredient) => (
+            {ingredients.map((ingredient, index) => (
               <div
                 data-testid={
                   `${ingredients.indexOf(ingredient)}-ingredient-step`

@@ -34,9 +34,13 @@ function FoodInProgress() {
     meals: {
       [idReceita.idReceita]: [],
     },
+    cocktails: {},
   };
-  if (localObject === null) {
+  if (localObject === null || localObject.meals === {}) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+  } else if (localObject.meals[idReceita.idReceita] === undefined) {
+    localObject.meals[idReceita.idReceita] = [];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
   }
 
   const check = () => {
@@ -44,13 +48,11 @@ function FoodInProgress() {
       index < ingredients.length && detail; index += 1) {
       const box = document.getElementById(ingredients[index]);
       if (box.checked) {
-        storage.meals[
-          idReceita.idReceita][index] = ingredients[index];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+        localObject.meals[idReceita.idReceita][index] = ingredients[index];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       } else {
-        storage.meals[
-          idReceita.idReceita][index] = '';
-        localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+        localObject.meals[idReceita.idReceita][index] = '';
+        localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       }
     }
   };

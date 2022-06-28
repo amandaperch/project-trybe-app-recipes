@@ -37,10 +37,12 @@ function Recommended() {
       <div className="recomendation">
         {drinkRecipe ? (
           recomendation.map((element, index) => (
-            <div data-testid={ `${index}-recomendation-card` } key={ element.idMeal }>
+            <div
+              data-testid={ `${index}-recomendation-card` }
+              key={ `${element.idMeal}` }
+            >
               <Link
                 to={ `/foods/${element.idMeal}` }
-                replace
               >
                 <p data-testid={ `${index}-recomendation-title` }>{ element.strMeal }</p>
                 <img src={ element.strMealThumb } alt="" />
@@ -51,7 +53,6 @@ function Recommended() {
             <div data-testid={ `${index}-recomendation-card` } key={ element.idDrink }>
               <Link
                 to={ `/drinks/${element.idDrink}` }
-                replace
               >
                 <p data-testid={ `${index}-recomendation-title` }>{ element.strDrink }</p>
                 <img src={ element.strDrinkThumb } alt="" />

@@ -99,11 +99,11 @@ function FoodDetails() {
               ? (
                 <>
                   <h2> Video </h2>
-                  <iframe
-                    src={ detail.strYoutube.replace('watch?v=', 'embed/') }
+                  {/* <iframe
+                    src={ detail.strYoutube?.replace('watch?v=', 'embed/') }
                     data-testid="video"
                     title="tutorial"
-                  />
+                  /> */}
                 </>
               ) : null}
             <Recommended />

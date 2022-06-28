@@ -3,12 +3,9 @@ import { useParams } from 'react-router-dom';
 
 const max = 20;
 
-function InProgress() {
+function FoodInProgress() {
   const [detail, setDetail] = useState('');
   const idReceita = useParams();
-  const historyUrl = window.location.href;
-  const foodRecipe = historyUrl.includes('foods');
-  const drinkRecipe = historyUrl.includes('drinks');
 
   const foodDetail = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -17,30 +14,46 @@ function InProgress() {
     setDetail(meals[0]);
   }, [idReceita]);
 
-  const drinkDetail = useCallback(async () => {
-    const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-    const { drinks } = await fetch(`${url}${idReceita.idReceita}`)
-      .then((response) => response.json());
-    setDetail(drinks[0]);
-  }, [idReceita]);
-
   useEffect(() => {
-    if (foodRecipe) {
-      foodDetail();
-    } else if (drinkRecipe) {
-      drinkDetail();
-    }
-  }, [foodRecipe, foodDetail, drinkDetail, drinkRecipe]);
+    foodDetail();
+  }, [foodDetail]);
 
   const ingredients = [];
+  let storage = {};
+
   for (let index = 1; index <= max && detail; index += 1) {
-    console.log(detail, 'xablau');
     if (detail[`strIngredient${index}`]) {
       ingredients.push(
-        `- ${detail[`strIngredient${index}`]} - ${detail[`strMeasure${index}`]}`,
+        `${detail[`strIngredient${index}`]} - ${detail[`strMeasure${index}`]}`,
       );
     }
   }
+
+  const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  storage = {
+    meals: {
+      [idReceita.idReceita]: [],
+    },
+  };
+  if (localObject === null) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+  }
+
+  const check = () => {
+    for (let index = 0;
+      index < ingredients.length && detail; index += 1) {
+      const box = document.getElementById(ingredients[index]);
+      if (box.checked) {
+        storage.meals[
+          idReceita.idReceita][index] = ingredients[index];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+      } else {
+        storage.meals[
+          idReceita.idReceita][index] = '';
+        localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
+      }
+    }
+  };
 
   return (
     <>
@@ -48,7 +61,7 @@ function InProgress() {
         <>
           <header>
             <img
-              src={ foodRecipe ? (detail.strMealThumb) : detail.strDrinkThumb }
+              src={ detail.strMealThumb }
               alt="food-icon"
               data-testid="recipe-photo"
             />
@@ -56,10 +69,7 @@ function InProgress() {
           <main>
             <div>
               <h1 data-testid="recipe-title">
-                {foodRecipe
-                  ? (
-                    detail.strMeal
-                  ) : detail.strDrink }
+                { detail.strMeal }
               </h1>
               <button type="button" data-testid="share-btn">
                 <img
@@ -72,22 +82,27 @@ function InProgress() {
                 Favorito
               </button>
               <p data-testid="recipe-category">
-                {foodRecipe
-                  ? (
-                    detail.strCategory
-                  ) : detail.strAlcoholic }
+                { detail.strCategory }
               </p>
             </div>
             <h2> Ingredientes </h2>
-            {ingredients.map((ingredient) => (
+            { ingredients.map((ingredient, index) => (
               <div
                 data-testid={
                   `${ingredients.indexOf(ingredient)}-ingredient-step`
                 }
                 key={ ingredients.indexOf(ingredient) }
               >
-                <input type="checkbox" id={ ingredient } />
+                <input
+                  type="checkbox"
+                  id={ ingredient }
+                  onClick={ () => check() }
+                  defaultChecked={
+                    localObject.meals[idReceita.idReceita][index] === ingredient
+                  }
+                />
                 <label htmlFor={ ingredient }>
+                  -
                   { ingredient }
                 </label>
               </div>))}
@@ -99,10 +114,10 @@ function InProgress() {
           <button type="button" data-testid="finish-recipe-btn"> Finish Recipe </button>
         </>
       ) }
-      {' '}
+      {''}
 
     </>
   );
 }
 
-export default InProgress;
+export default FoodInProgress;

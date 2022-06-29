@@ -90,7 +90,7 @@ function RecipesProvider({ children }) {
       drinksAPICategory();
     }
   }, [apiFilter, searchFilter, foodAPI, drinkAPI,
-    foodAPICategory, drinksAPICategory, fullDrinkAPI]);
+    foodAPICategory, drinksAPICategory, fullDrinkAPI, fullFoodAPI]);
 
   const contextValue = {
     data,

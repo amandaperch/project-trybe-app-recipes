@@ -19,7 +19,7 @@ function Card({ infoRecipe, index }) {
     </div>
   );
 
-  if (apiFilter === 'Foods') {
+  if (apiFilter === 'Foods' || apiFilter === 'Explore Nationalities') {
     const { strMealThumb, strMeal } = infoRecipe;
     const picRecipe = strMealThumb;
     const nameRecipe = strMeal;
@@ -34,6 +34,7 @@ function Card({ infoRecipe, index }) {
       card(picRecipe, nameRecipe)
     );
   }
+  return null;
 }
 
 Card.propTypes = {

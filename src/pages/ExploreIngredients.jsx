@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import IngredientCard from '../components/IngredientCard';
+import RecipesContext from '../context/RecipesContext';
 
 const MEALS_INGREDIENTS_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const DRINKS_INGREDIENTS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
@@ -10,7 +11,8 @@ const TWELVE = 12;
 
 function ExploreIngredients() {
   const [ingredients, setIngredients] = useState();
-  const history = useHistory();
+  const { location: { pathname } } = useHistory();
+  const { setSearchFilter, setApiFilter } = useContext(RecipesContext);
 
   const getMealIngredients = async () => {
     const response = await fetch(MEALS_INGREDIENTS_URL);
@@ -25,13 +27,24 @@ function ExploreIngredients() {
   };
 
   useEffect(() => {
-    if (history.location.pathname.includes('foods')) {
+    if (pathname.includes('foods')) {
       getMealIngredients();
     }
-    if (history.location.pathname.includes('drinks')) {
+    if (pathname.includes('drinks')) {
       getDrinksIngredients();
     }
-  }, [history]);
+  }, [pathname]);
+
+  const handleClick = (ingredient) => {
+    if (pathname.includes('foods')) {
+      setApiFilter('Foods');
+      setSearchFilter(`filter.php?i=${ingredient.strIngredient}`);
+    }
+    if (pathname.includes('drinks')) {
+      setApiFilter('Drinks');
+      setSearchFilter(`filter.php?i=${ingredient.strIngredient1}`);
+    }
+  };
 
   return (
     <div>
@@ -39,8 +52,9 @@ function ExploreIngredients() {
       {!ingredients ? <p>loading</p> : (
         ingredients.map((ingredient, index) => (
           <Link
-            to="/foods"
+            to={ pathname.includes('foods') ? '/foods' : '/drinks' }
             key={ index }
+            onClick={ () => handleClick(ingredient) }
           >
             <IngredientCard
               infoIngredient={ ingredient }

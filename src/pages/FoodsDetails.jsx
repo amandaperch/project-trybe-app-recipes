@@ -34,7 +34,6 @@ function FoodDetails() {
 
   const ingredients = [];
   for (let index = 1; index <= max && detail; index += 1) {
-    console.log(detail, 'xablau');
     if (detail[`strIngredient${index}`]) {
       ingredients.push(
         `- ${detail[`strIngredient${index}`]} - ${detail[`strMeasure${index}`]}`,

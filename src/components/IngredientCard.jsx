@@ -19,7 +19,6 @@ function IngredientCard({ infoIngredient, index }) {
 
   if (history.location.pathname.includes('foods')) {
     const { strIngredient } = infoIngredient;
-    console.log(strIngredient);
     const ingredientPic = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`;
     return (
       card(ingredientPic, strIngredient)
@@ -27,7 +26,6 @@ function IngredientCard({ infoIngredient, index }) {
   }
   if (history.location.pathname.includes('drinks')) {
     const { strIngredient1 } = infoIngredient;
-    console.log(strIngredient1);
     const ingredientPic = `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`;
     return (
       card(ingredientPic, strIngredient1)

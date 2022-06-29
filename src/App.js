@@ -44,10 +44,9 @@ function App() {
       <Route exact path="/explore/foods/nationalities" component={ FoodsNationalities } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-      <Route path="*" component={ NotFound } />
-
       <Route exact path="/foods/:idReceita/in-progress" component={ FoodInProgress } />
       <Route exact path="/drinks/:idReceita/in-progress" component={ DrinkInProgress } />
+      <Route path="*" component={ NotFound } />
     </Switch>
   );
 }

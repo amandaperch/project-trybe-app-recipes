@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
@@ -140,14 +141,16 @@ function FoodInProgress() {
             <div data-testid="instructions">
               { detail.strInstructions }
             </div>
+            <Link to="/done-recipes">
+              <button
+                type="button"
+                data-testid="finish-recipe-btn"
+                disabled={ finishButton }
+              >
+                Finish Recipe
+              </button>
+            </Link>
           </main>
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-            disabled={ finishButton }
-          >
-            Finish Recipe
-          </button>
         </>
       ) }
       {''}

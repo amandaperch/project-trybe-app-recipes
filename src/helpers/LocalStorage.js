@@ -14,13 +14,10 @@ export default function inProgressStorage(food, id) {
 }
 
 export const favIcon = ([id]) => {
-  console.log(id);
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  console.log(favoriteRecipes);
   const favStatus = favoriteRecipes.find(
     (recipe) => recipe.id === id,
   );
-  console.log(favStatus);
   if (favStatus === undefined) {
     return false;
   }

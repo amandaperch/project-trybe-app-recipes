@@ -11,9 +11,14 @@ const max = 20;
 function FoodInProgress() {
   const [detail, setDetail] = useState('');
   const [shareMessage, setShareMessage] = useState('');
-  const [favStatus, setFavStatus] = useState('');
   const idReceita = useParams();
+  const [favStatus, setFavStatus] = useState(favIcon([idReceita.idReceita]));
+
   inProgressStorage(true, [idReceita.idReceita]);
+
+  const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [finishButton, setFinishButton] = useState(Object.values(localObject.meals[
+    idReceita.idReceita]).includes(''));
 
   const foodDetail = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -21,11 +26,6 @@ function FoodInProgress() {
       .then((response) => response.json());
     setDetail(meals[0]);
   }, [idReceita]);
-
-  useEffect(() => {
-    foodDetail();
-    setFavStatus(favIcon([idReceita.idReceita]));
-  }, [foodDetail, idReceita]);
 
   const ingredients = [];
 
@@ -37,7 +37,11 @@ function FoodInProgress() {
     }
   }
 
-  const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const FinishDisable = () => {
+    setFinishButton(Object.values(localObject.meals[
+      idReceita.idReceita]).includes(''));
+  };
+
   const attFav = async () => {
     favorite('Meal', detail);
     setFavStatus(favIcon([idReceita.idReceita]));
@@ -55,6 +59,7 @@ function FoodInProgress() {
         localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       }
     }
+    FinishDisable();
   };
 
   const ShareFoods = () => {
@@ -62,6 +67,10 @@ function FoodInProgress() {
     copy(text);
     setShareMessage(true);
   };
+
+  useEffect(() => {
+    foodDetail();
+  }, [foodDetail, idReceita]);
 
   return (
     <>
@@ -127,12 +136,18 @@ function FoodInProgress() {
                   { ingredient }
                 </label>
               </div>))}
-            <h2> Istructions </h2>
+            <h2> Instructions </h2>
             <div data-testid="instructions">
               { detail.strInstructions }
             </div>
           </main>
-          <button type="button" data-testid="finish-recipe-btn"> Finish Recipe </button>
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ finishButton }
+          >
+            Finish Recipe
+          </button>
         </>
       ) }
       {''}

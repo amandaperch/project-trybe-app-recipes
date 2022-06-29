@@ -11,22 +11,21 @@ const max = 15;
 function DrinkInProgress() {
   const [detail, setDetail] = useState('');
   const [shareMessage, setShareMessage] = useState('');
-  const [favStatus, setFavStatus] = useState('');
   const idReceita = useParams();
+  const [favStatus, setFavStatus] = useState(favIcon([idReceita.idReceita]));
+
   inProgressStorage(false, [idReceita.idReceita]);
+
+  const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [finishButton, setFinishButton] = useState(Object.values(localObject.cocktails[
+    idReceita.idReceita]).includes(''));
 
   const drinkDetail = useCallback(async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
     const { drinks } = await fetch(`${url}${idReceita.idReceita}`)
       .then((response) => response.json());
     setDetail(drinks[0]);
-    console.log(drinks);
   }, [idReceita]);
-
-  useEffect(() => {
-    drinkDetail();
-    setFavStatus(favIcon([idReceita.idReceita]));
-  }, [drinkDetail, idReceita]);
 
   const ingredients = [];
 
@@ -38,7 +37,10 @@ function DrinkInProgress() {
     }
   }
 
-  const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const FinishDisable = () => {
+    setFinishButton(Object.values(localObject.cocktails[
+      idReceita.idReceita]).includes(''));
+  };
 
   const attFav = async () => {
     favorite('Drink', detail);
@@ -57,6 +59,7 @@ function DrinkInProgress() {
         localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       }
     }
+    FinishDisable();
   };
 
   const ShareDrinks = () => {
@@ -64,6 +67,10 @@ function DrinkInProgress() {
     copy(text);
     setShareMessage(true);
   };
+
+  useEffect(() => {
+    drinkDetail();
+  }, [drinkDetail, idReceita]);
 
   return (
     <>
@@ -98,7 +105,6 @@ function DrinkInProgress() {
                 <img
                   src={ favStatus ? BlackHeartIcon : WhiteHeartIcon }
                   data-testid="favorite-btn"
-                  // src=""
                   alt="favorite-icon"
                 />
               </button>
@@ -130,7 +136,7 @@ function DrinkInProgress() {
                   { ingredient }
                 </label>
               </div>))}
-            <h2> Istructions </h2>
+            <h2> Instructions </h2>
             <div data-testid="instructions">
               { detail.strInstructions }
             </div>
@@ -138,6 +144,7 @@ function DrinkInProgress() {
           <button
             type="button"
             data-testid="finish-recipe-btn"
+            disabled={ finishButton }
           >
             Finish Recipe
           </button>

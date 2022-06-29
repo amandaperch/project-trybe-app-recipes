@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -23,37 +24,41 @@ function FavoriteCard({ infoRecipe, index }) {
     </div>);
 
   if (infoRecipe.type === 'food') {
-    const { name, nationality, category, image } = infoRecipe;
+    const { name, nationality, category, image, id } = infoRecipe;
     return (
       <div>
-        <img
-          width="150px"
-          data-testid={ `${index}-horizontal-image` }
-          alt="recipe-pic"
-          src={ image }
-        />
-        <p
-          data-testid={ `${index}-horizontal-top-text` }
-        >
-          {`${nationality} - ${category}`}
-        </p>
-        <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        <Link to={ `/foods/${id}` }>
+          <img
+            width="150px"
+            data-testid={ `${index}-horizontal-image` }
+            alt="recipe-pic"
+            src={ image }
+          />
+          <p
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {`${nationality} - ${category}`}
+          </p>
+          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        </Link>
         {shareAndFavIcons(index)}
       </div>
     );
   }
   if (infoRecipe.type === 'drink') {
-    const { name, alcoholicOrNot, image } = infoRecipe;
+    const { name, alcoholicOrNot, image, id } = infoRecipe;
     return (
       <div>
-        <img
-          width="150px"
-          data-testid={ `${index}-horizontal-image` }
-          alt="recipe-pic"
-          src={ image }
-        />
-        <p data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</p>
-        <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        <Link to={ `/drinks/${id}` }>
+          <img
+            width="150px"
+            data-testid={ `${index}-horizontal-image` }
+            alt="recipe-pic"
+            src={ image }
+          />
+          <p data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</p>
+          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        </Link>
         {shareAndFavIcons(index)}
       </div>
     );

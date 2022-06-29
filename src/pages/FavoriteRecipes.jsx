@@ -25,8 +25,8 @@ function FavoriteRecipes() {
       >
         Drinks
       </button>
-      {favoriteRecipes && favoriteRecipes.map((favRecipe) => (
-        <FavoriteCard key={ favRecipe.id } infoRecipe={ favRecipe } />
+      {favoriteRecipes && favoriteRecipes.map((favRecipe, index) => (
+        <FavoriteCard key={ favRecipe.id } infoRecipe={ favRecipe } index={ index } />
       ))}
     </div>
   );

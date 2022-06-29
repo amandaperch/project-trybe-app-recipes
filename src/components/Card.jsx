@@ -23,7 +23,6 @@ function Card({ infoRecipe, index }) {
     const { strMealThumb, strMeal } = infoRecipe;
     const picRecipe = strMealThumb;
     const nameRecipe = strMeal;
-    console.log('comida');
     return (
       card(picRecipe, nameRecipe)
     );

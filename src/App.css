@@ -66,3 +66,7 @@
     transform: rotate(-10deg);
   }
 }
+
+input:checked ~ label {
+  text-decoration: line-through;
+}

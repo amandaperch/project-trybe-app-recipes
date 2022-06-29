@@ -13,7 +13,9 @@ function RecipesProvider({ children }) {
   const [detail, setDetail] = useState();
   const [category, setCategory] = useState();
   const [email, setEmail] = useState('');
+  const [localData, setLocalData] = useState();
 
+  // Filtro de botões de FOODS
   const foodAPICategory = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
     const { meals } = await fetch(url)
@@ -27,6 +29,7 @@ function RecipesProvider({ children }) {
     const { meals } = await fetch(url)
       .then((response) => response.json());
     setData(meals.slice(0, maxRecipes));
+    setLocalData(meals.slice(0, maxRecipes));
   };
 
   // requisicao com filtro FOOD
@@ -41,13 +44,22 @@ function RecipesProvider({ children }) {
     }
   }, [searchFilter]);
 
+  // Filtro de botões de DRINKS
+  const drinksAPICategory = useCallback(async () => {
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    const { drinks } = await fetch(url)
+      .then((response) => response.json());
+    setCategory(drinks.slice(0, maxCategory));
+  }, []);
+
   // requisição DRINK primeiro render
-  const fullDrinkAPI = async () => {
+  const fullDrinkAPI = useCallback(async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const { drinks } = await fetch(url)
       .then((response) => response.json());
     setData(drinks.slice(0, maxRecipes));
-  };
+    setLocalData(drinks.slice(0, maxRecipes));
+  }, []);
 
   // requisicao com filtro DRINK
   const drinkAPI = useCallback(async () => {
@@ -68,16 +80,15 @@ function RecipesProvider({ children }) {
       } else if (apiFilter === 'Drinks') {
         drinkAPI();
       }
-    } else {
-      if (apiFilter === 'Foods') {
-        fullFoodAPI();
-        foodAPICategory();
-      } else if (apiFilter === 'Drinks') {
-        fullDrinkAPI();
-      }
-      console.log(`estamos na pagina ${apiFilter}`);
+    } else if (apiFilter === 'Foods') {
+      fullFoodAPI();
+      foodAPICategory();
+    } else if (apiFilter === 'Drinks') {
+      fullDrinkAPI();
+      drinksAPICategory();
     }
-  }, [apiFilter, searchFilter, foodAPI, drinkAPI, foodAPICategory]);
+  }, [apiFilter, searchFilter, foodAPI, drinkAPI,
+    foodAPICategory, drinksAPICategory, fullDrinkAPI]);
 
   const contextValue = {
     data,
@@ -92,6 +103,8 @@ function RecipesProvider({ children }) {
     setDetail,
     category,
     setCategory,
+    localData,
+    setLocalData,
   };
 
   return (

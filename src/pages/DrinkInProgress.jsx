@@ -1,11 +1,19 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
+import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import inProgressStorage, { favIcon, favorite } from '../helpers/LocalStorage';
 
 const max = 15;
 
 function DrinkInProgress() {
   const [detail, setDetail] = useState('');
+  const [shareMessage, setShareMessage] = useState('');
+  const [favStatus, setFavStatus] = useState('');
   const idReceita = useParams();
+  inProgressStorage(false, [idReceita.idReceita]);
 
   const drinkDetail = useCallback(async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
@@ -17,10 +25,10 @@ function DrinkInProgress() {
 
   useEffect(() => {
     drinkDetail();
-  }, [drinkDetail]);
+    setFavStatus(favIcon([idReceita.idReceita]));
+  }, [drinkDetail, idReceita]);
 
   const ingredients = [];
-  let storage = {};
 
   for (let index = 1; index <= max && detail; index += 1) {
     if (detail[`strIngredient${index}`]) {
@@ -29,21 +37,13 @@ function DrinkInProgress() {
       );
     }
   }
-  console.log(JSON.parse(localStorage.getItem('inProgressRecipes')));
 
   const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  storage = {
-    cocktails: {
-      [idReceita.idReceita]: [],
-    },
-    meals: {},
+
+  const attFav = async () => {
+    favorite('Drink', detail);
+    setFavStatus(favIcon([idReceita.idReceita]));
   };
-  if (localObject === null) {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
-  } else if (localObject.cocktails[idReceita.idReceita] === undefined) {
-    localObject.cocktails[idReceita.idReceita] = [];
-    localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
-  }
 
   const check = () => {
     for (let index = 0;
@@ -57,6 +57,12 @@ function DrinkInProgress() {
         localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       }
     }
+  };
+
+  const ShareDrinks = () => {
+    const text = `http://localhost:3000/drinks/${idReceita.idReceita}`;
+    copy(text);
+    setShareMessage(true);
   };
 
   return (
@@ -75,16 +81,30 @@ function DrinkInProgress() {
               <h1 data-testid="recipe-title">
                 { detail.strDrink }
               </h1>
-              <button type="button" data-testid="share-btn">
+              <button
+                type="button"
+                onClick={ () => ShareDrinks() }
+              >
                 <img
-                  src=""
+                  src={ shareIcon }
                   alt="share-icon"
+                  data-testid="share-btn"
                 />
-                Compartilhar
               </button>
-              <button type="button" data-testid="favorite-btn">
-                Favorito
+              <button
+                type="button"
+                onClick={ () => attFav() }
+              >
+                <img
+                  src={ favStatus ? BlackHeartIcon : WhiteHeartIcon }
+                  data-testid="favorite-btn"
+                  // src=""
+                  alt="favorite-icon"
+                />
               </button>
+              { shareMessage && (
+                <h1>Link copied!</h1>
+              )}
               <p data-testid="recipe-category">
                 { detail.strAlcoholic }
               </p>
@@ -115,7 +135,12 @@ function DrinkInProgress() {
               { detail.strInstructions }
             </div>
           </main>
-          <button type="button" data-testid="finish-recipe-btn"> Finish Recipe </button>
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+          >
+            Finish Recipe
+          </button>
         </>
       )}
       {''}

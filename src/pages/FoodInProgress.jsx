@@ -1,11 +1,19 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import inProgressStorage, { favIcon, favorite } from '../helpers/LocalStorage';
 
 const max = 20;
 
 function FoodInProgress() {
   const [detail, setDetail] = useState('');
+  const [shareMessage, setShareMessage] = useState('');
+  const [favStatus, setFavStatus] = useState('');
   const idReceita = useParams();
+  inProgressStorage(true, [idReceita.idReceita]);
 
   const foodDetail = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -16,10 +24,10 @@ function FoodInProgress() {
 
   useEffect(() => {
     foodDetail();
-  }, [foodDetail]);
+    setFavStatus(favIcon([idReceita.idReceita]));
+  }, [foodDetail, idReceita]);
 
   const ingredients = [];
-  let storage = {};
 
   for (let index = 1; index <= max && detail; index += 1) {
     if (detail[`strIngredient${index}`]) {
@@ -30,18 +38,10 @@ function FoodInProgress() {
   }
 
   const localObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  storage = {
-    meals: {
-      [idReceita.idReceita]: [],
-    },
-    cocktails: {},
+  const attFav = async () => {
+    favorite('Meal', detail);
+    setFavStatus(favIcon([idReceita.idReceita]));
   };
-  if (localObject === null || localObject.meals === {}) {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(storage));
-  } else if (localObject.meals[idReceita.idReceita] === undefined) {
-    localObject.meals[idReceita.idReceita] = [];
-    localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
-  }
 
   const check = () => {
     for (let index = 0;
@@ -55,6 +55,12 @@ function FoodInProgress() {
         localStorage.setItem('inProgressRecipes', JSON.stringify(localObject));
       }
     }
+  };
+
+  const ShareFoods = () => {
+    const text = `http://localhost:3000/foods/${idReceita.idReceita}`;
+    copy(text);
+    setShareMessage(true);
   };
 
   return (
@@ -73,16 +79,29 @@ function FoodInProgress() {
               <h1 data-testid="recipe-title">
                 { detail.strMeal }
               </h1>
-              <button type="button" data-testid="share-btn">
+              <button
+                type="button"
+                onClick={ () => ShareFoods() }
+              >
                 <img
-                  src=""
+                  src={ shareIcon }
+                  data-testid="share-btn"
                   alt="share-icon"
                 />
-                Compartilhar
               </button>
-              <button type="button" data-testid="favorite-btn">
-                Favorito
+              <button
+                type="button"
+                onClick={ () => attFav() }
+              >
+                <img
+                  data-testid="favorite-btn"
+                  src={ favStatus ? BlackHeartIcon : WhiteHeartIcon }
+                  alt="favorite-icon"
+                />
               </button>
+              { shareMessage && (
+                <h1>Link copied!</h1>
+              )}
               <p data-testid="recipe-category">
                 { detail.strCategory }
               </p>

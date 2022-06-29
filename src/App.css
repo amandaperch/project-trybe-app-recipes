@@ -66,3 +66,7 @@
     transform: rotate(-10deg);
   }
 }
+
+input[ type = "checkbox" ]:checked ~ label {
+  text-decoration: line-through;
+}

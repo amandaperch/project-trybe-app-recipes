@@ -13,7 +13,10 @@ function RecipesProvider({ children }) {
   const [detail, setDetail] = useState();
   const [category, setCategory] = useState();
   const [email, setEmail] = useState('');
+  const [shareMessage, setShareMessage] = useState('');
+  const [favStatus, setFavStatus] = useState('');
   const [localData, setLocalData] = useState();
+
 
   // Filtro de botões de FOODS
   const foodAPICategory = useCallback(async () => {
@@ -103,6 +106,10 @@ function RecipesProvider({ children }) {
     setDetail,
     category,
     setCategory,
+    shareMessage,
+    setShareMessage,
+    favStatus,
+    setFavStatus,
     localData,
     setLocalData,
   };

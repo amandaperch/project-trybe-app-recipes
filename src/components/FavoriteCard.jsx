@@ -67,9 +67,15 @@ function FavoriteCard({ infoRecipe, index }) {
 }
 
 FavoriteCard.propTypes = {
-  strMealThumb: PropTypes.string,
-  strMeal: PropTypes.string,
   index: PropTypes.number,
+  infoRecipe: PropTypes.shape({
+    name: PropTypes.string,
+    nationality: PropTypes.string,
+    image: PropTypes.string,
+    category: PropTypes.string,
+    id: PropTypes.string,
+    alcoholicOrNot: PropTypes.string,
+  }),
 }.isRequired;
 
 export default FavoriteCard;

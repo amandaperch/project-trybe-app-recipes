@@ -16,6 +16,9 @@ function RecipesProvider({ children }) {
   const [shareMessage, setShareMessage] = useState('');
   const [favStatus, setFavStatus] = useState('');
   const [localData, setLocalData] = useState();
+  const [favoriteRecipes, setFavoriteRecipes] = useState(
+    JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
+  );
 
   // Filtro de botões de FOODS
   const foodAPICategory = useCallback(async () => {
@@ -112,6 +115,8 @@ function RecipesProvider({ children }) {
     setFavStatus,
     localData,
     setLocalData,
+    favoriteRecipes,
+    setFavoriteRecipes,
   };
 
   return (

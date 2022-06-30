@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import FavoriteCard from '../components/FavoriteCard';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
 
 function FavoriteRecipes() {
   const [filter, setFilter] = useState('All');
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const { favoriteRecipes } = useContext(RecipesContext);
 
   return (
     <div>
@@ -42,7 +43,11 @@ function FavoriteRecipes() {
             return favRecipe;
           })
           .map((favRecipe, index) => (
-            <FavoriteCard key={ favRecipe.id } infoRecipe={ favRecipe } index={ index } />
+            <FavoriteCard
+              key={ favRecipe.id }
+              infoRecipe={ favRecipe }
+              index={ index }
+            />
           ))}
     </div>
   );

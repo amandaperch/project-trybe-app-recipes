@@ -12,42 +12,30 @@ function Footer() {
       className="footer"
     >
       <Link to="/drinks">
-        <button
-          type="button"
-        >
-          <img
-            className="footer-icon"
-            data-testid="drinks-bottom-btn"
-            src={ drinkIcon }
-            alt="drink-icon"
-          />
-        </button>
+        <img
+          className="footer-icon"
+          data-testid="drinks-bottom-btn"
+          src={ drinkIcon }
+          alt="drink-icon"
+        />
       </Link>
 
       <Link to="/explore">
-        <button
-          type="button"
-        >
-          <img
-            className="footer-icon"
-            data-testid="explore-bottom-btn"
-            src={ exploreIcon }
-            alt="explore-icon"
-          />
-        </button>
+        <img
+          className="footer-icon"
+          data-testid="explore-bottom-btn"
+          src={ exploreIcon }
+          alt="explore-icon"
+        />
       </Link>
 
       <Link to="/foods">
-        <button
-          type="button"
-        >
-          <img
-            className="footer-icon"
-            data-testid="food-bottom-btn"
-            src={ mealIcon }
-            alt="food-icon"
-          />
-        </button>
+        <img
+          className="footer-icon"
+          data-testid="food-bottom-btn"
+          src={ mealIcon }
+          alt="food-icon"
+        />
       </Link>
 
     </footer>

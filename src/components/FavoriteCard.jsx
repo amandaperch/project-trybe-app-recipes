@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
+const THREE_SECONDS = 3000;
+
 function FavoriteCard({ infoRecipe, index }) {
-  const shareAndFavIcons = (recipeIndex) => (
+  const [copiedMsg, setCopiedMsg] = useState(null);
+
+  const copyUrlToClipboard = (recipeType, recipeId) => {
+    // fonte: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    // fonte: https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText
+    navigator.clipboard.writeText(`http://localhost:3000/${recipeType}/${recipeId}`);
+    setCopiedMsg('Link copied!');
+    setTimeout(() => {
+      setCopiedMsg(null);
+    }, THREE_SECONDS);
+  };
+
+  const shareAndFavIcons = (recipeIndex, recipeType, recipeId) => (
     <div>
-      <button type="button">
+      <button type="button" onClick={ () => copyUrlToClipboard(recipeType, recipeId) }>
         <img
           data-testid={ `${recipeIndex}-horizontal-share-btn` }
           alt="share-btn"
@@ -21,6 +35,7 @@ function FavoriteCard({ infoRecipe, index }) {
           src={ blackHeartIcon }
         />
       </button>
+      {copiedMsg && <span>{copiedMsg}</span>}
     </div>);
 
   if (infoRecipe.type === 'food') {
@@ -41,7 +56,7 @@ function FavoriteCard({ infoRecipe, index }) {
           </p>
           <p data-testid={ `${index}-horizontal-name` }>{name}</p>
         </Link>
-        {shareAndFavIcons(index)}
+        {shareAndFavIcons(index, 'foods', id)}
       </div>
     );
   }
@@ -59,7 +74,7 @@ function FavoriteCard({ infoRecipe, index }) {
           <p data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</p>
           <p data-testid={ `${index}-horizontal-name` }>{name}</p>
         </Link>
-        {shareAndFavIcons(index)}
+        {shareAndFavIcons(index, 'drinks', id)}
       </div>
     );
   }

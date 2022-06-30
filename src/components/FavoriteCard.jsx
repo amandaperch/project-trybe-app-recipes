@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { unfavoriteFromLocalStorage } from '../helpers/LocalStorage';
+import RecipesContext from '../context/RecipesContext';
 
 const THREE_SECONDS = 3000;
 
 function FavoriteCard({ infoRecipe, index }) {
   const [copiedMsg, setCopiedMsg] = useState(null);
+  const { setFavoriteRecipes } = useContext(RecipesContext);
 
   const copyUrlToClipboard = (recipeType, recipeId) => {
     // fonte: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
@@ -28,7 +31,10 @@ function FavoriteCard({ infoRecipe, index }) {
           src={ shareIcon }
         />
       </button>
-      <button type="button">
+      <button
+        type="button"
+        onClick={ () => setFavoriteRecipes(unfavoriteFromLocalStorage(recipeId)) }
+      >
         <img
           data-testid={ `${recipeIndex}-horizontal-favorite-btn` }
           alt="favorite-btn"

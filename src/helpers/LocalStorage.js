@@ -45,3 +45,13 @@ export const favorite = (mealOrDrink, recipe) => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   }
 };
+
+export const unfavoriteFromLocalStorage = (id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  if (favoriteRecipes) {
+    const newFavoriteRecipes = favoriteRecipes
+      .filter((favRecipes) => favRecipes.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+    return JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  }
+};

@@ -1,6 +1,9 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Recommended from '../components/Recommended';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../CSS/FoodsDetails.css';
 
 const max = 20;
 
@@ -45,14 +48,16 @@ function FoodDetails() {
   return (
     <>
       { detail && (
-        <>
+        <div className="detailsContainer">
           <header>
-            <img
-              src={ foodRecipe ? (detail.strMealThumb) : detail.strDrinkThumb }
-              alt="food-icon"
-              className="header-recipe-photo"
-              data-testid="recipe-photo"
-            />
+            <div className="imgDetail">
+              <img
+                src={ foodRecipe ? (detail.strMealThumb) : detail.strDrinkThumb }
+                alt="food-icon"
+                data-testid="recipe-photo"
+                className="photoRecipe"
+              />
+            </div>
           </header>
           <main>
             <div>
@@ -62,15 +67,25 @@ function FoodDetails() {
                     detail.strMeal
                   ) : detail.strDrink }
               </h1>
-              <button type="button" data-testid="share-btn">
+              <button
+                type="button"
+                className="btnRecipes"
+              >
                 <img
-                  src=""
+                  data-testid="share-btn"
+                  src={ shareIcon }
                   alt="share-icon"
                 />
-                Compartilhar
               </button>
-              <button type="button" data-testid="favorite-btn">
-                Favorito
+              <button
+                type="button"
+                className="btnRecipes"
+              >
+                <img
+                  data-testid="favorite-btn"
+                  src={ whiteHeartIcon }
+                  alt="share-icon"
+                />
               </button>
               <p data-testid="recipe-category">
                 {foodRecipe
@@ -99,16 +114,30 @@ function FoodDetails() {
               ? (
                 <>
                   <h2> Video </h2>
-                  {/* <iframe
+                  <iframe
                     src={ detail.strYoutube?.replace('watch?v=', 'embed/') }
                     data-testid="video"
                     title="tutorial"
-                  /> */}
+                  /> 
                 </>
               ) : null}
             <Recommended />
           </main>
-        </>
+          <Link
+            to={ foodRecipe ? `/foods/${idReceita.idReceita}/in-progress`
+              : `/Drinks/${idReceita.idReceita}/in-progress` }
+          >
+            <div className="btnStartContainer">
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="btnStartRecipe"
+              >
+                Start Recipe
+              </button>
+            </div>
+          </Link>
+        </div>
       ) }
       {' '}
 

@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import logoImg from '../images/Logo_useRecipes.png';
+import '../CSS/Login.css';
 
 const NUM = 6;
 
@@ -23,29 +25,39 @@ function Login() {
   };
 
   return (
-    <div>
-      <input
-        type="email"
-        data-testid="email-input"
-        placeholder="E-mail"
-        value={ email }
-        onChange={ (e) => setEmail(e.target.value) }
-      />
-      <input
-        type="password"
-        data-testid="password-input"
-        placeholder="Password"
-        value={ password }
-        onChange={ (e) => setPassword(e.target.value) }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ handleClick }
-        disabled={ !(validatePassword() && validateEmail()) }
-      >
-        Enter
-      </button>
+    <div className="loginComponent">
+      <div className="boxContent">
+        <img
+          className="logoIMG"
+          src={ logoImg }
+          alt="iconLogo"
+        />
+        <input
+          className="loginInput"
+          type="email"
+          data-testid="email-input"
+          placeholder="E-mail"
+          value={ email }
+          onChange={ (e) => setEmail(e.target.value) }
+        />
+        <input
+          className="loginInput"
+          type="password"
+          data-testid="password-input"
+          placeholder="Password"
+          value={ password }
+          onChange={ (e) => setPassword(e.target.value) }
+        />
+        <button
+          className="loginBtn"
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ handleClick }
+          disabled={ !(validatePassword() && validateEmail()) }
+        >
+          Enter
+        </button>
+      </div>
     </div>
   );
 }

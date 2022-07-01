@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
+import '../CSS/Explore.css';
 
 const AREAS_LIST_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const MEALS_BY_AREAS_URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
@@ -54,19 +55,21 @@ function FoodsNationalities() {
               {area.strArea}
             </option>))}
       </select>
-      {data && (
-        data.map((recipe, index) => (
-          <Link
-            to={ `/foods/${data[index].idMeal}` }
-            key={ index }
-          >
-            <Card
-              index={ index }
-              infoRecipe={ recipe }
-            />
-          </Link>
-        ))
-      )}
+      <div className="containerRecipes">
+        {data && (
+          data.map((recipe, index) => (
+            <Link
+              to={ `/foods/${data[index].idMeal}` }
+              key={ index }
+            >
+              <Card
+                index={ index }
+                infoRecipe={ recipe }
+              />
+            </Link>
+          ))
+        )}
+      </div>
       <Footer />
     </div>
   );

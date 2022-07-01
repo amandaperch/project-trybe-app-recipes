@@ -43,42 +43,48 @@ function Drinks() {
   };
 
   return (
-    <div>
+    <div className="recipesBackground">
       <Header pageTitle={ pageTitle } btnSearch />
-      {!category ? undefined : (
-        category.map((categoryName, index) => (
-          <button
-            value={ categoryName.strCategory }
-            key={ index }
-            type="button"
-            data-testid={ `${categoryName.strCategory}-category-filter` }
-            onClick={ async (event) => filterCategory(event.target.value) }
-          >
-            { categoryName.strCategory }
-          </button>
-        ))
-      )}
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => removeFilter() }
-      >
-        all
-      </button>
-      {!data ? <p>loading</p> : (
-        data.map((recipe, index) => (
-          <Link
-            to={ `drinks/${data[index].idDrink}` }
-            key={ index }
-          >
-            <Card
-              index={ index }
-              infoRecipe={ recipe }
+      <div className="buttonContainer">
+        {!category ? undefined : (
+          category.map((categoryName, index) => (
+            <button
+              className="buttonCategory"
+              value={ categoryName.strCategory }
+              key={ index }
+              type="button"
+              data-testid={ `${categoryName.strCategory}-category-filter` }
+              onClick={ async (event) => filterCategory(event.target.value) }
+            >
+              { categoryName.strCategory }
+            </button>
+          ))
+        )}
+        <button
+          className="removeFilter"
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => removeFilter() }
+        >
+          Remove Filter
+        </button>
+      </div>
+      <div className="containerRecipes">
+        {!data ? <p>loading</p> : (
+          data.map((recipe, index) => (
+            <Link
+              to={ `drinks/${data[index].idDrink}` }
+              key={ index }
+            >
+              <Card
+                index={ index }
+                infoRecipe={ recipe }
 
-            />
-          </Link>
-        ))
-      )}
+              />
+            </Link>
+          ))
+        )}
+      </div>
       <Footer />
     </div>
   );

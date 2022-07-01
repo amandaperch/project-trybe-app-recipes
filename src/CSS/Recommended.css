@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.recomendation img, .recomendation p {
+.recomendation .imgRecomendation, .recomendation p {
   padding: 0 1em;
   width: 11em;
 }

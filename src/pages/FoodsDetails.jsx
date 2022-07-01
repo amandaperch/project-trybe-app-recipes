@@ -1,5 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Recommended from '../components/Recommended';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 const max = 20;
 
@@ -50,6 +53,7 @@ function FoodDetails() {
               src={ foodRecipe ? (detail.strMealThumb) : detail.strDrinkThumb }
               alt="food-icon"
               data-testid="recipe-photo"
+              className="photoRecipe"
             />
           </header>
           <main>
@@ -62,13 +66,15 @@ function FoodDetails() {
               </h1>
               <button type="button" data-testid="share-btn">
                 <img
-                  src=""
+                  src={ shareIcon }
                   alt="share-icon"
                 />
-                Compartilhar
               </button>
               <button type="button" data-testid="favorite-btn">
-                Favorito
+                <img
+                  src={ whiteHeartIcon }
+                  alt="share-icon"
+                />
               </button>
               <p data-testid="recipe-category">
                 {foodRecipe
@@ -98,18 +104,24 @@ function FoodDetails() {
                 <>
                   <h2> Video </h2>
                   <iframe
-                    src={ detail.strYoutube.replace('watch?v=', 'embed/') }
+                    src={ detail.strYoutube?.replace('watch?v=', 'embed/') }
                     data-testid="video"
                     title="tutorial"
                   />
                 </>
               ) : null}
-            <h2> Recommended </h2>
+            <Recommended />
             <div data-testid="0-recomendation-card">
               Ingredients
             </div>
           </main>
-          <button type="button" data-testid="start-recipe-btn"> Start Recipe </button>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="btnStartRecipe"
+          >
+            Start Recipe
+          </button>
         </>
       ) }
       {' '}

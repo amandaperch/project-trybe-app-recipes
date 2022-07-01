@@ -59,15 +59,6 @@ function Recommended() {
               </Link>
             </div>
           )))}
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="btnStartRecipe"
-        >
-          {' '}
-          Start Recipe
-          {' '}
-        </button>
       </div>
     </div>
   );

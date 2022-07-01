@@ -1,15 +1,16 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import '../CSS/ListRecipes.css';
 
 function IngredientCard({ infoIngredient, index }) {
   const history = useHistory();
   const card = (ingredientPic, ingredientName) => (
     <div data-testid={ `${index}-ingredient-card` }>
       <img
+        className="imgCardRecipes"
         data-testid={ `${index}-card-img` }
         alt="ingredient-pic"
         src={ ingredientPic }
-        width="200px"
       />
       <p data-testid={ `${index}-card-name` }>
         {ingredientName}

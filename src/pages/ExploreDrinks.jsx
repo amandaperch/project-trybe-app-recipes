@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../CSS/Explore.css';
 
 const RANDOM_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
@@ -15,20 +16,27 @@ function ExploreDrinks() {
   };
 
   return (
-    <div>
+    <div className="detailsContainer">
       <Header pageTitle="Explore Drinks" />
-      <Link to="/explore/drinks/ingredients">
-        <button type="button" data-testid="explore-by-ingredient">
-          By Ingredient
+      <div className="buttonContainer">
+        <Link to="/explore/drinks/ingredients">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+            className="buttonCategory"
+          >
+            By Ingredient
+          </button>
+        </Link>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ goToRandomDrink }
+          className="buttonCategory"
+        >
+          Surprise me!
         </button>
-      </Link>
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ goToRandomDrink }
-      >
-        Surprise me!
-      </button>
+      </div>
       <Footer />
     </div>
   );

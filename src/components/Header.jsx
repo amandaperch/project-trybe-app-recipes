@@ -101,7 +101,7 @@ function Header({ pageTitle, btnSearch }) {
                   onClick={ (e) => setRadioControl(e.target.value) }
                 />
                 First Letter
-                <span className="checkmark" />
+                <span className="right-checkmark" />
               </label>
 
               <button

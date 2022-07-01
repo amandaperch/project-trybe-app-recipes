@@ -50,12 +50,16 @@ function Recommended() {
             </div>
           ))) : (
           recomendation.map((element, index) => (
-            <div data-testid={ `${index}-recomendation-card` } key={ element.idDrink }>
+            <div data-testid={ `${index}-recomendation-card` } key={ index }>
               <Link
                 to={ `/drinks/${element.idDrink}` }
               >
                 <p data-testid={ `${index}-recomendation-title` }>{ element.strDrink }</p>
-                <img src={ element.strDrinkThumb } alt="" />
+                <img
+                  className="imgRecomendation"
+                  src={ element.strDrinkThumb }
+                  alt=""
+                />
               </Link>
             </div>
           )))}

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Recommended from '../components/Recommended';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../CSS/FoodsDetails.css';
 
 const max = 20;
 
@@ -47,14 +48,16 @@ function FoodDetails() {
   return (
     <>
       { detail && (
-        <>
+        <div className="detailsContainer">
           <header>
-            <img
-              src={ foodRecipe ? (detail.strMealThumb) : detail.strDrinkThumb }
-              alt="food-icon"
-              data-testid="recipe-photo"
-              className="photoRecipe"
-            />
+            <div className="imgDetail">
+              <img
+                src={ foodRecipe ? (detail.strMealThumb) : detail.strDrinkThumb }
+                alt="food-icon"
+                data-testid="recipe-photo"
+                className="photoRecipe"
+              />
+            </div>
           </header>
           <main>
             <div>
@@ -64,13 +67,21 @@ function FoodDetails() {
                     detail.strMeal
                   ) : detail.strDrink }
               </h1>
-              <button type="button" data-testid="share-btn">
+              <button
+                type="button"
+                data-testid="share-btn"
+                className="btnRecipes"
+              >
                 <img
                   src={ shareIcon }
                   alt="share-icon"
                 />
               </button>
-              <button type="button" data-testid="favorite-btn">
+              <button
+                type="button"
+                data-testid="favorite-btn"
+                className="btnRecipes"
+              >
                 <img
                   src={ whiteHeartIcon }
                   alt="share-icon"
@@ -111,18 +122,17 @@ function FoodDetails() {
                 </>
               ) : null}
             <Recommended />
-            <div data-testid="0-recomendation-card">
-              Ingredients
-            </div>
           </main>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="btnStartRecipe"
-          >
-            Start Recipe
-          </button>
-        </>
+          <div className="btnStartContainer">
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="btnStartRecipe"
+            >
+              Start Recipe
+            </button>
+          </div>
+        </div>
       ) }
       {' '}
 

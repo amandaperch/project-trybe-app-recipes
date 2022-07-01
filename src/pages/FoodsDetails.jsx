@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Recommended from '../components/Recommended';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -123,15 +123,21 @@ function FoodDetails() {
               ) : null}
             <Recommended />
           </main>
-          <div className="btnStartContainer">
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="btnStartRecipe"
-            >
-              Start Recipe
-            </button>
-          </div>
+          <Link
+            to={ foodRecipe ? `/foods/${idReceita.idReceita}/in-progress`
+              : `/Drinks/${idReceita.idReceita}/in-progress` }
+          >
+            <div className="btnStartContainer">
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="btnStartRecipe"
+                onClick={ () => console.log('sdasdsads') }
+              >
+                Start Recipe
+              </button>
+            </div>
+          </Link>
         </div>
       ) }
       {' '}

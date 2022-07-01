@@ -106,7 +106,7 @@ function FoodDetails() {
                   { ingredient }
                 </p>
               </div>))}
-            <h2> Istructions </h2>
+            <h2> Instructions </h2>
             <div data-testid="instructions">
               { detail.strInstructions }
             </div>
@@ -118,7 +118,7 @@ function FoodDetails() {
                     src={ detail.strYoutube?.replace('watch?v=', 'embed/') }
                     data-testid="video"
                     title="tutorial"
-                  />
+                  /> 
                 </>
               ) : null}
             <Recommended />

@@ -13,3 +13,9 @@
 .header-recipe-photo {
   width: 100%;
 }
+
+.btnStartRecipe {
+  bottom: 0;
+  position: fixed;
+  text-align: center;
+}

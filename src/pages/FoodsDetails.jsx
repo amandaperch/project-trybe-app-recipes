@@ -118,7 +118,7 @@ function FoodDetails() {
                     src={ detail.strYoutube?.replace('watch?v=', 'embed/') }
                     data-testid="video"
                     title="tutorial"
-                  /> 
+                  />
                 </>
               ) : null}
             <Recommended />
@@ -140,7 +140,6 @@ function FoodDetails() {
         </div>
       ) }
       {' '}
-
     </>
   );
 }

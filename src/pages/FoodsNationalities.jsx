@@ -41,12 +41,14 @@ function FoodsNationalities() {
   return (
     <div>
       <Header pageTitle="Explore Nationalities" btnSearch />
-      <select
-        data-testid="explore-by-nationality-dropdown"
-        onChange={ (e) => handleSelectArea(e.target.value) }
-      >
-        <option data-testid="All-option">All</option>
-        {areas
+      <div className="selectNationality">
+        <select
+          className="inputSelectNationality"
+          data-testid="explore-by-nationality-dropdown"
+          onChange={ (e) => handleSelectArea(e.target.value) }
+        >
+          <option data-testid="All-option">All</option>
+          {areas
           && areas.map((area) => (
             <option
               key={ area.strArea }
@@ -54,7 +56,8 @@ function FoodsNationalities() {
             >
               {area.strArea}
             </option>))}
-      </select>
+        </select>
+      </div>
       <div className="containerRecipes">
         {data && (
           data.map((recipe, index) => (

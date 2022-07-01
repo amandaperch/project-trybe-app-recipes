@@ -116,7 +116,7 @@ function FoodInProgress() {
                 />
               </button>
               { shareMessage && (
-                <h1>Link copied!</h1>
+                <p>Link copied!</p>
               )}
               <p data-testid="recipe-category">
                 { detail.strCategory }

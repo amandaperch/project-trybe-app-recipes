@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import inProgressStorage, { favIcon, favorite } from '../helpers/LocalStorage';
+import '../CSS/ProgressRecipe.css';
 
 const max = 15;
 
@@ -76,13 +77,15 @@ function DrinkInProgress() {
   return (
     <>
       { detail && (
-        <>
+        <div className="detailsContainer">
           <header>
-            <img
-              src={ detail.strDrinkThumb }
-              alt="food-icon"
-              data-testid="recipe-photo"
-            />
+            <div className="imgDetail">
+              <img
+                src={ detail.strDrinkThumb }
+                alt="food-icon"
+                data-testid="recipe-photo"
+              />
+            </div>
           </header>
           <main>
             <div>
@@ -90,6 +93,7 @@ function DrinkInProgress() {
                 { detail.strDrink }
               </h1>
               <button
+                className="btnRecipes"
                 type="button"
                 onClick={ () => ShareDrinks() }
               >
@@ -104,6 +108,7 @@ function DrinkInProgress() {
                 onClick={ () => attFav() }
               >
                 <img
+                  className="btnRecipes"
                   src={ favStatus ? BlackHeartIcon : WhiteHeartIcon }
                   data-testid="favorite-btn"
                   alt="favorite-icon"
@@ -142,16 +147,19 @@ function DrinkInProgress() {
               { detail.strInstructions }
             </div>
             <Link to="/done-recipes">
-              <button
-                type="button"
-                data-testid="finish-recipe-btn"
-                disabled={ finishButton }
-              >
-                Finish Recipe
-              </button>
+              <div className="btnStartContainer">
+                <button
+                  className="btnStartRecipe"
+                  type="button"
+                  data-testid="finish-recipe-btn"
+                  disabled={ finishButton }
+                >
+                  Finish Recipe
+                </button>
+              </div>
             </Link>
           </main>
-        </>
+        </div>
       )}
       {''}
     </>

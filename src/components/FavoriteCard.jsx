@@ -5,6 +5,8 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { unfavoriteFromLocalStorage } from '../helpers/LocalStorage';
 import RecipesContext from '../context/RecipesContext';
+import '../CSS/FavoriteCard.css';
+import '../CSS/FoodsDetails.css';
 
 const THREE_SECONDS = 3000;
 
@@ -24,7 +26,11 @@ function FavoriteCard({ infoRecipe, index }) {
 
   const shareAndFavIcons = (recipeIndex, recipeType, recipeId) => (
     <div>
-      <button type="button" onClick={ () => copyUrlToClipboard(recipeType, recipeId) }>
+      <button
+        className="btnRecipes"
+        type="button"
+        onClick={ () => copyUrlToClipboard(recipeType, recipeId) }
+      >
         <img
           data-testid={ `${recipeIndex}-horizontal-share-btn` }
           alt="share-btn"
@@ -32,6 +38,7 @@ function FavoriteCard({ infoRecipe, index }) {
         />
       </button>
       <button
+        className="btnRecipes"
         type="button"
         onClick={ () => setFavoriteRecipes(unfavoriteFromLocalStorage(recipeId)) }
       >
@@ -47,40 +54,71 @@ function FavoriteCard({ infoRecipe, index }) {
   if (infoRecipe.type === 'food') {
     const { name, nationality, category, image, id } = infoRecipe;
     return (
-      <div>
+      <div className="favorite-card">
         <Link to={ `/foods/${id}` }>
           <img
-            width="150px"
+            className="fav-recipe-pic"
             data-testid={ `${index}-horizontal-image` }
             alt="recipe-pic"
             src={ image }
           />
+        </Link>
+        <div className="favorite-card-right">
           <p
+            className="favorite-text"
             data-testid={ `${index}-horizontal-top-text` }
           >
             {`${nationality} - ${category}`}
           </p>
-          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
-        </Link>
-        {shareAndFavIcons(index, 'foods', id)}
+          <Link to={ `/foods/${id}` }>
+            <p
+              className="favorite-text-name"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {name}
+
+            </p>
+          </Link>
+          <div className="favorite-btn-container">
+            {shareAndFavIcons(index, 'foods', id)}
+          </div>
+        </div>
       </div>
     );
   }
   if (infoRecipe.type === 'drink') {
     const { name, alcoholicOrNot, image, id } = infoRecipe;
     return (
-      <div>
+      <div className="favorite-card">
         <Link to={ `/drinks/${id}` }>
           <img
-            width="150px"
+            className="fav-recipe-pic"
             data-testid={ `${index}-horizontal-image` }
             alt="recipe-pic"
             src={ image }
           />
-          <p data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</p>
-          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
         </Link>
-        {shareAndFavIcons(index, 'drinks', id)}
+        <div className="favorite-card-right">
+          <p
+            className="favorite-text"
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {alcoholicOrNot}
+
+          </p>
+          <Link to={ `/drinks/${id}` }>
+            <p
+              className="favorite-text-name"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {name}
+
+            </p>
+          </Link>
+          <div className="favorite-btn-container">
+            {shareAndFavIcons(index, 'drinks', id)}
+          </div>
+        </div>
       </div>
     );
   }

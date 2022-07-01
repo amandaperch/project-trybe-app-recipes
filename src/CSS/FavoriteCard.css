@@ -1,0 +1,23 @@
+.favorite-card {
+  display: flex;
+  margin: 10px auto;
+  padding: 5px;
+  width: 340px;
+  background-color: rgb(247, 247, 247);
+  border-radius: 8px;
+  justify-content: space-around;
+  box-shadow: 1px 2px 5px lightgray;
+}
+
+.fav-recipe-pic {
+  border-radius: 8px;
+  width: 160px;
+}
+
+.favorite-card-right {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 160px;
+}

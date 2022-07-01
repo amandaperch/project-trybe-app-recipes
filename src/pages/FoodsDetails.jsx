@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Recommended from '../components/Recommended';
 
 const max = 20;
 
@@ -49,6 +50,7 @@ function FoodDetails() {
             <img
               src={ foodRecipe ? (detail.strMealThumb) : detail.strDrinkThumb }
               alt="food-icon"
+              className="header-recipe-photo"
               data-testid="recipe-photo"
             />
           </header>
@@ -89,7 +91,7 @@ function FoodDetails() {
                   { ingredient }
                 </p>
               </div>))}
-            <h2> Istructions </h2>
+            <h2> Instructions </h2>
             <div data-testid="instructions">
               { detail.strInstructions }
             </div>
@@ -97,19 +99,15 @@ function FoodDetails() {
               ? (
                 <>
                   <h2> Video </h2>
-                  <iframe
-                    src={ detail.strYoutube.replace('watch?v=', 'embed/') }
+                  {/* <iframe
+                    src={ detail.strYoutube?.replace('watch?v=', 'embed/') }
                     data-testid="video"
                     title="tutorial"
-                  />
+                  /> */}
                 </>
               ) : null}
-            <h2> Recommended </h2>
-            <div data-testid="0-recomendation-card">
-              Ingredients
-            </div>
+            <Recommended />
           </main>
-          <button type="button" data-testid="start-recipe-btn"> Start Recipe </button>
         </>
       ) }
       {' '}

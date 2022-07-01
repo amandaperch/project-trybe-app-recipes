@@ -22,31 +22,36 @@ function ExploreFoods() {
   // }, [randomMealId, history]);
 
   return (
-    <div>
+    <div className="detailsContainer">
       <Header pageTitle="Explore Foods" />
-      <Link to="/explore/foods/ingredients">
+      <div className="buttonContainer">
+        <Link to="/explore/foods/ingredients">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+            className="buttonCategory"
+          >
+            By Ingredient
+          </button>
+        </Link>
+        <Link to="/explore/foods/nationalities">
+          <button
+            type="button"
+            data-testid="explore-by-nationality"
+            className="buttonCategory"
+          >
+            By Nationality
+          </button>
+        </Link>
         <button
           type="button"
-          data-testid="explore-by-ingredient"
+          data-testid="explore-surprise"
+          onClick={ goToRandomMeal }
+          className="buttonCategory"
         >
-          By Ingredient
+          Surprise me!
         </button>
-      </Link>
-      <Link to="/explore/foods/nationalities">
-        <button
-          type="button"
-          data-testid="explore-by-nationality"
-        >
-          By Nationality
-        </button>
-      </Link>
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ goToRandomMeal }
-      >
-        Surprise me!
-      </button>
+      </div>
       <Footer />
     </div>
   );

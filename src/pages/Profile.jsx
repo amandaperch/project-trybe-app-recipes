@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../CSS/ListRecipes.css';
 
 function Profile() {
   const history = useHistory();
@@ -15,40 +16,46 @@ function Profile() {
   return (
     <>
       <Header pageTitle="Profile" />
+      <div className="detailsContainer">
+        <h1 data-testid="profile-email" className="emailProfile">
+          {email
+            ? (
+              email.email
+            ) : 'email@email' }
+        </h1>
 
-      <h1 data-testid="profile-email">
-        {email
-          ? (
-            email.email
-          ) : 'email@email' }
-      </h1>
+        <div className="buttonContainer">
 
-      <Link to="/done-recipes">
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-        >
-          Done Recipes
-        </button>
-      </Link>
+          <Link to="/done-recipes">
+            <button
+              type="button"
+              data-testid="profile-done-btn"
+              className="buttonCategory"
+            >
+              Done Recipes
+            </button>
+          </Link>
 
-      <Link to="/favorite-recipes">
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-        >
-          Favorite Recipes
-        </button>
-      </Link>
+          <Link to="/favorite-recipes">
+            <button
+              type="button"
+              data-testid="profile-favorite-btn"
+              className="buttonCategory"
+            >
+              Favorite Recipes
+            </button>
+          </Link>
 
-      <button
-        type="button"
-        data-testid="profile-logout-btn"
-        onClick={ handleClick }
-      >
-        Logout
-      </button>
-
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ handleClick }
+            className="buttonCategory"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
       <Footer />
 
     </>

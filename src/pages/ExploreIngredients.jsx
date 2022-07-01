@@ -47,21 +47,25 @@ function ExploreIngredients() {
   };
 
   return (
-    <div>
+    <div className="detailsContainer">
       <Header pageTitle="Explore Ingredients" />
       {!ingredients ? <p>loading</p> : (
-        ingredients.map((ingredient, index) => (
-          <Link
-            to={ pathname.includes('foods') ? '/foods' : '/drinks' }
-            key={ index }
-            onClick={ () => handleClick(ingredient) }
-          >
-            <IngredientCard
-              infoIngredient={ ingredient }
-              index={ index }
-            />
-          </Link>
-        ))
+        <div className="containerRecipes">
+          {
+            ingredients.map((ingredient, index) => (
+              <Link
+                to={ pathname.includes('foods') ? '/foods' : '/drinks' }
+                key={ index }
+                onClick={ () => handleClick(ingredient) }
+              >
+                <IngredientCard
+                  infoIngredient={ ingredient }
+                  index={ index }
+                />
+              </Link>
+            ))
+          }
+        </div>
       )}
       <Footer />
     </div>

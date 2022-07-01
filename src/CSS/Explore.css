@@ -1,4 +1,4 @@
-.recipesBackground {
+html {
   background-color: whitesmoke;
 }
 
@@ -12,7 +12,7 @@
   padding: 0 10px;
 }
 
-.buttonCategory, .removeFilter {
+.buttonCategory {
   background-color: #febcad;
   border: 0;
   border-radius: 10px;
@@ -20,18 +20,11 @@
   margin-top: 10px;
 }
 
-.containerRecipes a {
-  align-items: center;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  font-size: 40px;
-  justify-content: space-between;
-  margin: 15px 0 60px;
-  padding: 0 10px;
+.emailProfile {
+  text-align: center;
 }
 
-.imgCardRecipes {
-  border-radius: 15px;
-  width: 8em;
+.detailsContainer {
+  background-color: whitesmoke;
+  padding-bottom: 15px; 
 }

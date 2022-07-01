@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Recommended from '../components/Recommended';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -69,20 +69,20 @@ function FoodDetails() {
               </h1>
               <button
                 type="button"
-                data-testid="share-btn"
                 className="btnRecipes"
               >
                 <img
+                  data-testid="share-btn"
                   src={ shareIcon }
                   alt="share-icon"
                 />
               </button>
               <button
                 type="button"
-                data-testid="favorite-btn"
                 className="btnRecipes"
               >
                 <img
+                  data-testid="favorite-btn"
                   src={ whiteHeartIcon }
                   alt="share-icon"
                 />
@@ -106,7 +106,7 @@ function FoodDetails() {
                   { ingredient }
                 </p>
               </div>))}
-            <h2> Istructions </h2>
+            <h2> Instructions </h2>
             <div data-testid="instructions">
               { detail.strInstructions }
             </div>
@@ -118,20 +118,25 @@ function FoodDetails() {
                     src={ detail.strYoutube?.replace('watch?v=', 'embed/') }
                     data-testid="video"
                     title="tutorial"
-                  />
+                  /> 
                 </>
               ) : null}
             <Recommended />
           </main>
-          <div className="btnStartContainer">
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="btnStartRecipe"
-            >
-              Start Recipe
-            </button>
-          </div>
+          <Link
+            to={ foodRecipe ? `/foods/${idReceita.idReceita}/in-progress`
+              : `/Drinks/${idReceita.idReceita}/in-progress` }
+          >
+            <div className="btnStartContainer">
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="btnStartRecipe"
+              >
+                Start Recipe
+              </button>
+            </div>
+          </Link>
         </div>
       ) }
       {' '}

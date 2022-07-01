@@ -44,8 +44,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 3px;
-  padding: 0 10px;
+  padding: 3px;
   width: 100%;
 }
 
@@ -53,15 +52,14 @@
   background-color: #febcad;
   border: 0;
   border-radius: 10px;
-  height: 50px;
+  height: 40px;
 }
 
 .container {
   cursor: pointer;
-  display: block;
-  font-size: 15px;
-  margin-bottom: 12px;
-  padding-left: 30px;
+  font-size: 14px;
+  margin: 0 5px 0 0;
+  padding: 5px 5px 5px 25px;
   position: relative;
   user-select: none;
 }
@@ -72,18 +70,38 @@
   position: absolute;
 }
 
+.right-checkmark {
+  background-color: #eee;
+  border-radius: 50%;
+  height: 18px;
+  left: 2px;
+  position: absolute;
+  top: 17px;
+  width: 18px;
+}
+
 .checkmark {
   background-color: #eee;
   border-radius: 50%;
-  height: 25px;
-  left: 0;
+  height: 18px;
+  left: 2px;
   position: absolute;
-  top: 0;
-  width: 25px;
+  top: 7px;
+  width: 18px;
+}
+
+.container input:checked ~ .right-checkmark {
+  background-color: #febcad;
 }
 
 .container input:checked ~ .checkmark {
   background-color: #febcad;
+}
+
+.right-checkmark:after {
+  content: '';
+  display: none;
+  position: absolute;
 }
 
 .checkmark:after {
@@ -92,13 +110,26 @@
   position: absolute;
 }
 
+.container .right-checkmark:after {
+  background: white;
+  border-radius: 50%;
+  height: 8px;
+  left: 5px;
+  top: 5px;
+  width: 8px;
+}
+
 .container .checkmark:after {
   background: white;
   border-radius: 50%;
   height: 8px;
-  left: 9px;
-  top: 9px;
+  left: 5px;
+  top: 5px;
   width: 8px;
+}
+
+.container input:checked ~ .right-checkmark:after {
+  display: block;
 }
 
 .container input:checked ~ .checkmark:after {

@@ -69,20 +69,20 @@ function FoodDetails() {
               </h1>
               <button
                 type="button"
-                data-testid="share-btn"
                 className="btnRecipes"
               >
                 <img
+                  data-testid="share-btn"
                   src={ shareIcon }
                   alt="share-icon"
                 />
               </button>
               <button
                 type="button"
-                data-testid="favorite-btn"
                 className="btnRecipes"
               >
                 <img
+                  data-testid="favorite-btn"
                   src={ whiteHeartIcon }
                   alt="share-icon"
                 />
@@ -132,7 +132,6 @@ function FoodDetails() {
                 type="button"
                 data-testid="start-recipe-btn"
                 className="btnStartRecipe"
-                onClick={ () => console.log('sdasdsads') }
               >
                 Start Recipe
               </button>

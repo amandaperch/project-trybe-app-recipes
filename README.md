@@ -16,29 +16,23 @@ Realizado em grupo
 - Criar Hooks customizados
 
 ---
-## Arquivos manipulados :hamburger:
 
-Os arquivos com códigos feitos por mim são dos seguintes:
-<p>
-  SRC/Actios/index.js<br />
-  SRC/Pages/Login.js<br />
-  SRC/Pages/Wallet.js<br />
-  SRC/Reducers/index.js<br />
-  SRC/Reducers/user.js<br />
-  SRC/Reducers/wallet.js<br />
-  SRC/Store/index.js<br />
-  App.js<br />
- </p>
-
----
 ## Aprendizados do projeto em grupo :pancakes:
 
 - Neste Projeto meu grupo obtive 83% de aprovação;
+- Realizamos DM's todos os dias para ajustar prazos e para dividir o que cada um tenha feito, ou estava com dificuldades. 
+- Usamos o Trello para dividir as tarefas e para fazer a gestão do tempo. 
+- Decidimos por fazer pair programming durante todo projeto.
+- Para cominicação usamos o slack.
+- Ao final apresentamos o projeto para equipe da trybe, por este motivo realizei a logo e decidimos que o app se chamaria "UseRecipes" para fazer uma brincadeira com o UseState, UseContext e UseEffect do React.
 
 ---
 ## Requisitos que serão realizados :poultry_leg:
 
 <p>
+  
+ - [ ] Refatorar;<br />
+        Como o projeto foi realizado em grupo estarei procurando melhorias e irei refatorar o mesmo, ficou muito bom com a ajuda dos colegas, mas para um questão de prática, quero estuda-lo mais.
         
 - [ ] Escrever testes;<br />
         Os testes que utilizavamos para este projeto eram da Trybe e foram deletados, desta maneira estarei realizando novos testes.

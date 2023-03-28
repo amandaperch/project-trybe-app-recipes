@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/amandaperch/project-trybe-app-recipes/blob/main/src/images/Logo_useRecipes.png"/>
+<img src="https://github.com/amandaperch/project-trybe-app-recipes/blob/main/src/images/Logo_useRecipes.png"/><br />
 Projeto de Front end - App de Receitas
 Realizado em grupo
 </p>
